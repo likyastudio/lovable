@@ -1,5 +1,439 @@
 [
   {
+    "title": "Girgin Cafe",
+    "categoryName": "Kafe",
+    "phone": "+905327879410",
+    "totalScore": 4.1,
+    "reviewsCount": 823,
+    "address": "Çağlayan, Barınaklar Blv. 126/2, 07230 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "24 saat açık"
+      ],
+      "Cumartesi": [
+        "24 saat açık"
+      ],
+      "Pazar": [
+        "24 saat açık"
+      ],
+      "Pazartesi": [
+        "24 saat açık"
+      ],
+      "Perşembe": [
+        "24 saat açık"
+      ],
+      "Salı": [
+        "24 saat açık"
+      ],
+      "Çarşamba": [
+        "24 saat açık"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Kafe"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Girgin+Cafe&query_place_id=ChIJzxUdMkebwxQRBudG8IVSoFo",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Cafe Pik",
+    "categoryName": "Kafe",
+    "phone": "+905538951212",
+    "totalScore": 3.9,
+    "reviewsCount": 480,
+    "address": "Fener, Tekelioğlu Cd. No:100, 07160 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "09:00–02:00"
+      ],
+      "Cumartesi": [
+        "09:00–02:00"
+      ],
+      "Pazar": [
+        "09:00–02:00"
+      ],
+      "Pazartesi": [
+        "09:00–02:00"
+      ],
+      "Perşembe": [
+        "09:00–02:00"
+      ],
+      "Salı": [
+        "09:00–02:00"
+      ],
+      "Çarşamba": [
+        "09:00–02:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Kafe"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Cafe+Pik&query_place_id=ChIJsegtJhybwxQRAt5ltEYPUgY",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Caffe Meet Plus+ Eski Lara",
+    "categoryName": "Kafe",
+    "phone": "+902423240404",
+    "totalScore": 4.4,
+    "reviewsCount": 631,
+    "address": "Şirinyalı, 1504. Sk., 07160 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "11:00–02:00"
+      ],
+      "Cumartesi": [
+        "09:00–02:00"
+      ],
+      "Pazar": [
+        "09:00–02:00"
+      ],
+      "Pazartesi": [
+        "11:00–02:00"
+      ],
+      "Perşembe": [
+        "11:00–02:00"
+      ],
+      "Salı": [
+        "11:00–02:00"
+      ],
+      "Çarşamba": [
+        "11:00–02:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Kafe",
+      "Kahvaltı restoranı",
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Caffe+Meet+Plus%2B+Eski+Lara&query_place_id=ChIJLS5ZqLGbwxQRVtVvREH3D7w",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Ukiyo Coffee & Cookies - Antalya Kurabiye, Tatlı ve Kafe",
+    "categoryName": "Kahve dükkanı",
+    "phone": "+905442567476",
+    "totalScore": 4.9,
+    "reviewsCount": 193,
+    "address": "Yeşilbahçe, 1450. Sk. 48/B, 07160 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "13:00–22:00"
+      ],
+      "Cumartesi": [
+        "13:00–22:00"
+      ],
+      "Pazar": [
+        "13:00–22:00"
+      ],
+      "Pazartesi": [
+        "Kapalı"
+      ],
+      "Perşembe": [
+        "13:00–22:00"
+      ],
+      "Salı": [
+        "13:00–22:00"
+      ],
+      "Çarşamba": [
+        "13:00–22:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Kahve dükkanı",
+      "Kafe",
+      "Tatlıcı"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Ukiyo+Coffee+%26+Cookies+-+Antalya+Kurabiye%2C+Tatl%C4%B1+ve+Kafe&query_place_id=ChIJedbvdmGbwxQRuSTDw1aW9KI",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Yeşil Vadi Cafe & Park",
+    "categoryName": "Kafe",
+    "phone": "+905315851005",
+    "totalScore": 5,
+    "reviewsCount": 12,
+    "address": "Fabrikalar, 3002. Sk. No:2/1, 07090 Kepez/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "08:00–02:00"
+      ],
+      "Cumartesi": [
+        "08:00–02:00"
+      ],
+      "Pazar": [
+        "08:00–02:00"
+      ],
+      "Pazartesi": [
+        "08:00–02:00"
+      ],
+      "Perşembe": [
+        "08:00–02:00"
+      ],
+      "Salı": [
+        "08:00–02:00"
+      ],
+      "Çarşamba": [
+        "08:00–02:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Kafe"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Ye%C5%9Fil+Vadi+Cafe+%26+Park&query_place_id=ChIJ_W76cZ2PwxQRX5v4y4D7HeY",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Simurg Cafe",
+    "categoryName": "Kafe",
+    "phone": "+902422416625",
+    "totalScore": 4.6,
+    "reviewsCount": 741,
+    "address": "Selçuk, Tabakhane Sk., 07100 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "13:00–03:00"
+      ],
+      "Cumartesi": [
+        "13:00–03:00"
+      ],
+      "Pazar": [
+        "13:00–03:00"
+      ],
+      "Pazartesi": [
+        "13:00–03:00"
+      ],
+      "Perşembe": [
+        "13:00–03:00"
+      ],
+      "Salı": [
+        "13:00–03:00"
+      ],
+      "Çarşamba": [
+        "13:00–03:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Kafe",
+      "Bar"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Simurg+Cafe&query_place_id=ChIJC1xx8wSQwxQRlv0klRdSA9Q",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Canape Cafe & Bistro",
+    "categoryName": "Hint restoranı",
+    "phone": "+905431920972",
+    "totalScore": 4.7,
+    "reviewsCount": 1245,
+    "address": "Güzeloba, Lara Cd. 182/B, 07230 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "12:00–23:00"
+      ],
+      "Cumartesi": [
+        "12:00–23:00"
+      ],
+      "Pazar": [
+        "12:00–23:00"
+      ],
+      "Pazartesi": [
+        "12:00–23:00"
+      ],
+      "Perşembe": [
+        "12:00–23:00"
+      ],
+      "Salı": [
+        "12:00–23:00"
+      ],
+      "Çarşamba": [
+        "12:00–23:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Hint restoranı"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Canape+Cafe+%26+Bistro&query_place_id=ChIJjw6y86ecwxQRES2W8VlF2bA",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "CASTLE CAFE & BISTRO",
+    "categoryName": "Restoran",
+    "phone": "+905405676707",
+    "totalScore": 4.1,
+    "reviewsCount": 2578,
+    "address": "Kılınçarslan, Hıdırlık Sk. No:46, 07100 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "10:00–00:00"
+      ],
+      "Cumartesi": [
+        "10:00–00:00"
+      ],
+      "Pazar": [
+        "10:00–00:00"
+      ],
+      "Pazartesi": [
+        "10:00–00:00"
+      ],
+      "Perşembe": [
+        "10:00–00:00"
+      ],
+      "Salı": [
+        "10:00–00:00"
+      ],
+      "Çarşamba": [
+        "10:00–00:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=CASTLE+CAFE+%26+BISTRO&query_place_id=ChIJpZ4ueQ-QwxQRp_3VdR3w3U4",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Kubi Kahve Evi",
+    "categoryName": "Kafe",
+    "phone": "+905521737007",
+    "totalScore": 4.1,
+    "reviewsCount": 2712,
+    "address": "Kılınçarslan, Kadir Paşa Sk. No:5, 07100 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "15:00–01:00"
+      ],
+      "Cumartesi": [
+        "15:00–00:00"
+      ],
+      "Pazar": [
+        "15:00–00:00"
+      ],
+      "Pazartesi": [
+        "15:00–00:00"
+      ],
+      "Perşembe": [
+        "15:00–00:00"
+      ],
+      "Salı": [
+        "15:00–00:00"
+      ],
+      "Çarşamba": [
+        "15:00–00:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Kafe"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Kubi+Kahve+Evi&query_place_id=ChIJXfOIqgiQwxQRjBxVKUZRXSA",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Cafe Barcelona nargile cafe",
+    "categoryName": "Kafe",
+    "phone": "+902422470506",
+    "totalScore": 4,
+    "reviewsCount": 1037,
+    "address": "Sinan, Recep Peker Cd. No:3, 07100 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "09:00–02:00"
+      ],
+      "Cumartesi": [
+        "09:00–02:00"
+      ],
+      "Pazar": [
+        "09:00–02:00"
+      ],
+      "Pazartesi": [
+        "09:00–02:00"
+      ],
+      "Perşembe": [
+        "09:00–02:00"
+      ],
+      "Salı": [
+        "09:00–02:00"
+      ],
+      "Çarşamba": [
+        "09:00–02:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Kafe"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Cafe+Barcelona+nargile+cafe&query_place_id=ChIJ863W0wCQwxQR0sc3TvZlHic",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "ÇAYYAŞ CAFE",
+    "categoryName": "Kafe",
+    "phone": "+905452559675",
+    "totalScore": 4.9,
+    "reviewsCount": 14,
+    "address": "Kızılsaray, Şarampol Cd, 07040 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "07:30–00:00"
+      ],
+      "Cumartesi": [
+        "07:30–00:00"
+      ],
+      "Pazar": [
+        "08:00–00:00"
+      ],
+      "Pazartesi": [
+        "07:30–00:00"
+      ],
+      "Perşembe": [
+        "07:30–00:00"
+      ],
+      "Salı": [
+        "07:30–00:00"
+      ],
+      "Çarşamba": [
+        "07:30–00:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Kafe"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=%C3%87AYYA%C5%9E+CAFE&query_place_id=ChIJAZGJT0GPwxQR75dZlVEj1ts",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya kafe"
+  },
+  {
     "title": "Pasta Antalya Hatice",
     "categoryName": "Pastane",
     "phone": "+905334022981",
