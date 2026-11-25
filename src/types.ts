@@ -107,6 +107,7 @@ export interface Lead {
 
 export interface PanelSettings {
   apifyToken: string;
+  outscraperKey: string;
   siteUrl: string;
   senderName: string;
   senderPhone: string;
