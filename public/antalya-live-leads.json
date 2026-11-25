@@ -1,0 +1,608 @@
+[
+  {
+    "title": "Co Co Cafe Bar",
+    "categoryName": "Kafe",
+    "phone": "(0242) 349 20 63",
+    "totalScore": 4.9,
+    "reviewsCount": 338,
+    "address": "Güzeloba Mahallesi 2304 Sokak, Örnekköy, Çarşı İçi No:9, 07230 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  02:30",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLe005Bi7Xx2VL-qZlGKAWqvVIgcWvVSbGEmneqf1AtNFPNukLT9FQEDH-rbpA0wPHqU6n7oC6XJsYN8PyyabcGVDrwWLwKwsMgjiEd3Ci1oTTZOBOPcVL_WQGjO7w1wJguSH8IO=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Kafe",
+      "Bar",
+      "Bistro"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJUUYUvVibwxQRfvvuNc-mwV8",
+    "source": "SerpAPI",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Mon Ami Coffee Antalya",
+    "categoryName": "Kafe",
+    "phone": "0533 525 07 55",
+    "totalScore": 4.6,
+    "reviewsCount": 288,
+    "address": "Fener, 1967/1. Sk. No:7/6, 07230 Muratpaşa/Antalya",
+    "openingHours": "Kapalı ⋅ Açılış zamanı: Per 09:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeeQID1Q2aO2uYaRGG_DIg7VGjY0wsmHGrAbgff1vTY6QVUydjgj4Gsv0GSQFzw5QVoOvJAOZX-jpL9RgtGlQaOgE1iSC_FqC65DHK2tpq-sk45G0CMCnJFiXEJflXQlgX1s0j4=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Kafe"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJ2TAvkVSbwxQRVH4ceK2hT3w",
+    "source": "SerpAPI",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Yağmur Cafe",
+    "categoryName": "Kafe",
+    "phone": "0533 455 15 27",
+    "totalScore": 4.8,
+    "reviewsCount": 144,
+    "address": "5, Karanlık Sokak, Tuzcular, Uzun Çarşı Sk., 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeFAdEvhRIKhCQ7Bmhali3T2nZV9AJI-XEQFQNZD_W5RH6DXblQEW38VHYpFRIa60_zwFMYKTHCoHm33dGBTz4JxO8opcD1bJATDq4m03N2-Yg8LhhK9M899amWhLvN0h0q2dXFaw=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Kafe"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJNYBuEASQwxQR4vVklzVDeYo",
+    "source": "SerpAPI",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "LORIEN COFFEE",
+    "categoryName": "Kahve dükkanı",
+    "phone": "(0242) 248 06 22",
+    "totalScore": 4.4,
+    "reviewsCount": 826,
+    "address": "Çaybaşı mah. Ali Çetinkaya caddesi A blok No:132AA, 07040 Muratpaşa/Antalya",
+    "openingHours": "Kapanmak üzere · 00:00 · Açılış zamanı: Per 08:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdF8IYYJypLtli1oQDc5a05rm_uezlXhIdxI9FZ9z23lvZGwTQR3SFavU4lBOVIFCZ9jkY4ERVQJmrO2tNRhnrRRy_st0RUWmcf1DH266gnS_OCe7cLLFKXwgyT1FhH7AQBm2UbAQ=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Kahve dükkanı"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJfzy1d1GFwxQREAta7895ZQY",
+    "source": "SerpAPI",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Colombia Coffee Kültür",
+    "categoryName": "Kafe",
+    "phone": "0542 278 30 70",
+    "totalScore": 4.2,
+    "reviewsCount": 547,
+    "address": "Kültür, 3805. Sk. 15 A, 07090 Kepez/Antalya",
+    "openingHours": "24 saat açık",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLf451XtCeXik1LBu80GYmb8mxiSJygndshE6-RCe8yZUP5dRJx4rhK11dQmug4qQl4dQTyVwH5pueK0hYLtykCdXlvlWxmC-FoVApkilc_HqzLC-H4M7rhBOeo15penI0hO1s7n=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Kafe"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJA-1sfoKRwxQRgKLIfNiHFcQ",
+    "source": "SerpAPI",
+    "query": "Antalya kafe"
+  },
+  {
+    "title": "Old Town Restaurant 07",
+    "categoryName": "Restoran",
+    "phone": "0535 388 18 69",
+    "totalScore": 4.5,
+    "reviewsCount": 3931,
+    "address": "Kaleiçi, Tuzcular, 2. İnönü Sk. No:43, 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfILPhXzQIyTl6SUpZ-DAR_nzjLuAM5hdGGdTt7yrmWQUcNaK3o3iJASW_GwuxL4ccSJEinzHPhrSrOuGuMoPU1HNJDhmybYVYzGoTrUqWPaS8DFOkYOvrfUAKMkapzxcNT4S_d8w=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJI3IFHHmRwxQR6qjw40fLf0A",
+    "source": "SerpAPI",
+    "query": "Antalya restoran"
+  },
+  {
+    "title": "Pastorale restaurant",
+    "categoryName": "Restoran",
+    "phone": "0544 362 65 56",
+    "totalScore": 4.8,
+    "reviewsCount": 2087,
+    "address": "Kılınçarslan, Hıdırlık Sk. No:37, 07100 Muratpaşa/Antalya",
+    "openingHours": "Kapanmak üzere · 23:30 · Açılış zamanı: Per 08:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcr58HbPOa2ooNo-sICzIiD9TMsFhqe7cDV1Wg9VxheH-Xqcn9STsTPOCTPOyKSHIJLKkkNmWy31WSJWRtRidziIfzS5VmtGCR7qnzmpHP9ALODWtXlDXsGxkOyW51Tfys3CkLXNA=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJMzD9IYaRwxQRuuFxzqm8Rpc",
+    "source": "SerpAPI",
+    "query": "Antalya restoran"
+  },
+  {
+    "title": "Türkay Roof Restaurant",
+    "categoryName": "Restoran",
+    "phone": "0533 073 69 85",
+    "totalScore": 4.7,
+    "reviewsCount": 334,
+    "address": "Altınkum, Atatürk Blv. No:154/B, 07070 Konyaaltı/Antalya",
+    "openingHours": "Açık · Kapanış saati:  00:30",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLc3xw3bvaVidl0ayiT9P7Mu032XhWg3297D2MAAD5n8jxN9cYy3V8zMwR9cn8RiZkZAVc0pW_X6XGoB4oZiYFUSIF4vEyRQzqGWt8_AB_us4OShxT07EOmVjyIyLPbtNlBt4xTXJw=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJGfnTfLuRwxQRiilQrh6a-CE",
+    "source": "SerpAPI",
+    "query": "Antalya restoran"
+  },
+  {
+    "title": "Terrace Steak House Restaurant",
+    "categoryName": "Biftek restoranı",
+    "phone": "0530 513 32 34",
+    "totalScore": 4.7,
+    "reviewsCount": 4006,
+    "address": "Kemerağzı Yeni Turizm Yolu Lara Doğakent Sitesi 5, 07112 Aksu/Antalya",
+    "openingHours": "Açık · Kapanış saati:  02:30",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcJSV6PWujYxwFkBSWJoV4cAyGeh3ZiCcC3mnqqmaUO4hZobWqG2xb1tBrEhTkpB_R80-h3X1k3Mj067TUzTyr00-fhL73GWC8Dy75xTNn4a0bBH0M6HtFdeZtmikT2QmiRsxOgXCxjokY=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Biftek restoranı"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJi8L8J0GDwxQRTXJztwnSN6c",
+    "source": "SerpAPI",
+    "query": "Antalya restoran"
+  },
+  {
+    "title": "Grand Friends Fish & Steak Restaurant",
+    "categoryName": "Restoran",
+    "phone": "0531 858 05 08",
+    "totalScore": 4.7,
+    "reviewsCount": 3097,
+    "address": "Selçuk, İzmir'li Ali Efendi Sokak No:27 kat 1, 07100 Muratpaşa/Antalya",
+    "openingHours": "Kapanmak üzere · 00:00 · Açılış zamanı: Per 10:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLf3Z51pCugH4iJ8jxeIr_7XY_NCm0hEIurHTYKBUo-Ji_P6M-OF2W9EHU2ulZBZe7a8MSCQSlQsaacHQhffGjFm1yon6MunzNpcQDA-A5zmZZzUwnBUlO9XwQzLyYdt2zpFu7sF-Q=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJTyjcBmiRwxQRLb3WRAbMApI",
+    "source": "SerpAPI",
+    "query": "Antalya restoran"
+  },
+  {
+    "title": "LAVİN Garden KONYAALTI",
+    "categoryName": "Otel",
+    "phone": "(0242) 228 07 72",
+    "totalScore": 4.1,
+    "reviewsCount": 716,
+    "address": "Altınkum, 425. Sk. No:14, 07070 Konyaaltı/Antalya",
+    "openingHours": "Her gün açık",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLe5aq97kGGgwr67FccMCpYC4IP_E9moZLtdmPR6gJWt6FONQM1BrKNilwE-oeR85DfpHmzpeYT_80lcou9VFpfHr5-GsKwxSX7lmsFQXRGU9t9o496CHnVkBzGme4_Ic0iAiLXy=w1000-h1000-c-n",
+    "description": "Odalarda klima, merkezi ısıtma ve banyo …. Odalarda klima, merkezi ısıtma ve banyo bulunmaktadır. Odalarda çift kişilik bir yatak ya da bir \"Kingsize\" …",
+    "highlights": [
+      "Otel"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJw_SpDXSRwxQR5j6PCO5QZe4",
+    "source": "SerpAPI",
+    "query": "Antalya butik otel"
+  },
+  {
+    "title": "Smell Butik Hotel",
+    "categoryName": "Otel",
+    "phone": "0555 087 60 07",
+    "totalScore": 5,
+    "reviewsCount": 20,
+    "address": "Kılınçarslan, Yenikapı Sokak No: 10, 07100 Muratpaşa/Antalya",
+    "openingHours": "Her gün açık",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLccvbrbuVCLgZ8gqeretcRvQYx75knSPo3460cbpuQklP38bvOgI4iszy-xkKtCTKf5ZVUhVqK1ZsiwLWpKQrKS0ZseNi-IwRW5Z_7PAFRCcfcmMv0sckTNTWNJ9TyJlBxEyqX2Uva2Wqj_=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Otel"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJQYisqgKRwxQRYqEqWJO47Ok",
+    "source": "SerpAPI",
+    "query": "Antalya butik otel"
+  },
+  {
+    "title": "Mimoza Konyaaltı",
+    "categoryName": "Otel",
+    "phone": "0545 683 47 07",
+    "totalScore": 4.3,
+    "reviewsCount": 240,
+    "address": "Gürsu, 308. Sk. No:34, 07070 Konyaaltı/Antalya",
+    "openingHours": "Her gün açık",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLc8HP5jNVND5AxTnM7Z7ECJeYvb4G33v0IMJjB6aPcVdYebZr0C-RMKG89BDNxWjGH3BKMCnEyOS4EHm1N1wl-qkEfVuu76Kq4-hXKGnMwIw1scff9uCXPJCaivKRyzdr-4JaAeAP56s15O=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Otel"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJhd-c2oSRwxQRur4Kec1YugI",
+    "source": "SerpAPI",
+    "query": "Antalya butik otel"
+  },
+  {
+    "title": "Antalya Güzellik Merkezi Nora Face Beauty Studio",
+    "categoryName": "Güzellik Salonu",
+    "phone": "0554 520 77 73",
+    "totalScore": 4.9,
+    "reviewsCount": 67,
+    "address": "Kızılsaray, Güllük Cd. Burak Apt 56/3 Kat 2, 07040 Muratpaşa/Antalya",
+    "openingHours": "24 saat açık",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdcUT8Rd3PU87F5KcGQbB0drrGOO5NwWJJCKSZHHCzP_Q-PCC6Ao9LmR23b9T4J3tJ4zTLNH2ukA0mw6QeMdjRmDLcXCIbBvqndCcLeQui_cq4k3d5G29ZhJrsN2E9bTYc94_Tl=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Güzellik Salonu",
+      "Sağlık ve Güzellik Merkezi"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJEwhNRPiRwxQRf9NUpPpT5u8",
+    "source": "SerpAPI",
+    "query": "Antalya güzellik salonu"
+  },
+  {
+    "title": "Konyaaltı Güzellik Salonu Dermasociete Beauty",
+    "categoryName": "Güzellik Salonu",
+    "phone": "0547 453 33 47",
+    "totalScore": 5,
+    "reviewsCount": 133,
+    "address": "Yalçın İş Merkezi, Liman, Boğaçay Cd. No:45 D:12, 07130, 07170 Konyaaltı/Antalya",
+    "openingHours": "Kapalı ⋅ Açılış zamanı: Per 09:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdlgcJ_h4FDik6h54ISraVVjzoHC2FUicSWwc6A568mIYrdc3HPi8unrfgmpM-UhS52QKLXtdVhsUl6VvNCpBouIy_kRQ-wK3mn6wwpO4RlJ4bnPmOOV4Me31H0tKq7Cni9NY_7x8OF5EU=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Güzellik Salonu",
+      "Güzellik Uzmanı"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJxah9p_WTwxQRZjaWbgVcazg",
+    "source": "SerpAPI",
+    "query": "Antalya güzellik salonu"
+  },
+  {
+    "title": "İlay Women & Men Coiffeur Beauty Salon",
+    "categoryName": "Güzellik Salonu",
+    "phone": "0532 782 19 76",
+    "totalScore": 5,
+    "reviewsCount": 130,
+    "address": "Liman, Atatürk Blv. No:230/B, 07070 Konyaaltı/Antalya",
+    "openingHours": "Kapalı ⋅ Açılış zamanı: Per 09:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdmHxMJnjEjbJ-EESGYhu2Z94MtI_DDKpYbyoaWt98_2gntkRAK79SLZruM9crg2fXbT_k7YWXflt_9J5a2u0diN-cWO9RSDorlSkuBej3u3OXmOtZfZR6ZELd33p_ZOfa1TAF68cIC7EM=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Güzellik Salonu"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJ5_jLOgaRwxQRZq1pPQDWfZQ",
+    "source": "SerpAPI",
+    "query": "Antalya güzellik salonu"
+  },
+  {
+    "title": "Tuğba Yılmaz Beauty",
+    "categoryName": "Güzellik Salonu",
+    "phone": "0537 414 07 97",
+    "totalScore": 4.9,
+    "reviewsCount": 191,
+    "address": "Çakmaklar apt, Pınarbaşı, 702. Sk. No:6 kat:1 daire:2, 07580 Konyaaltı/Antalya",
+    "openingHours": "Kapalı ⋅ Açılış zamanı: Per 10:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdCuVQv7WooPdgB5cBdKLlbPLAJRv_x9eLqIuY6mW_vcYpvqM5aU9UgfJundS4PWclVF186r7WtBnzAau6x5X78p8_qF4HWq8o_ThdtwNVvGjuQmHFP2ZgnXZkoVIwqVyk8HHw=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Güzellik Salonu"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJw8NLOmWRwxQRlpF0ZAVmuDc",
+    "source": "SerpAPI",
+    "query": "Antalya güzellik salonu"
+  },
+  {
+    "title": "Gizem Ülker Beauty",
+    "categoryName": "Güzellik Salonu",
+    "phone": "0545 475 78 32",
+    "totalScore": 5,
+    "reviewsCount": 182,
+    "address": "Emre Apartmanı, Gebizli, 1115/1. Sk. No:4, 07010 Muratpaşa/Antalya",
+    "openingHours": "Kapalı ⋅ Açılış zamanı: Per 09:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdwVdKME_KUkD4-6_YsH5yH4kVCa2rLy7070jEI--LTFaZhcjE11ZXawF85sYqyD6xa3ew0UDjiGB7ls8pFoE7LPj4-ywA5FdbbMNJKZkNCLjkcXwrBD-oBakDH32g-pZTrW-MgZsh7KIJy=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Güzellik Salonu"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJH_utiNmFwxQRm_bHzZ4-RPQ",
+    "source": "SerpAPI",
+    "query": "Antalya güzellik salonu"
+  },
+  {
+    "title": "Hurma Güzellik Salonu Ağda ,Altın oran kaş şekillendirme ,,Lazer, Kalıcı Makyaj Protez Tırnak,",
+    "categoryName": "Güzellik Salonu",
+    "phone": "0506 714 29 49",
+    "totalScore": 4.9,
+    "reviewsCount": 140,
+    "address": "Hurma, 277 . Sk Hilal Sitesi 12 D-A No:6, 07130 Konyaaltı/Antalya",
+    "openingHours": "Kapalı ⋅ Açılış zamanı: Per 09:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLf8UmX9lyubqUSaAr0tcbCkdlzK8UtKGy028dhISuThqBwKhjS47TWU0VLQmcLK0x-59_5svAosNTik5ixzJeNUW3zuI3h7PIKM75JgzNORTw5N5Zn0o0WNy6hqHib5hN9XywGT0wQn6s_L=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Güzellik Salonu"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJX5ph9r2TwxQR6fGdp7gOc5s",
+    "source": "SerpAPI",
+    "query": "Antalya güzellik salonu"
+  },
+  {
+    "title": "Aymira Koçaklı Antalya Güzellik salonu",
+    "categoryName": "Güzellik Salonu",
+    "phone": "0534 298 24 99",
+    "totalScore": 4.7,
+    "reviewsCount": 13,
+    "address": "Çaybaşı, Ali Çetinkaya Cd. Külhancı apartmanı No:122/b 1130/12, 07000 Muratpaşa/Antalya",
+    "openingHours": "Kapalı ⋅ Açılış zamanı: Per 09:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcJsSfHj3iCt4w1tEeyuykVSwMu2oK7_2X0owi7Z-4b0Cs-MN0GitvvyAg4x35ADZpXSTpzcritzAt2nBwsEwX_INNor6OQcZGY7K7IusKkvBPoCkQFJjc02Hz7gq7qVm3Czilo30eWpRir=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Güzellik Salonu"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJj7l6V9yFwxQRan-I4I73DvU",
+    "source": "SerpAPI",
+    "query": "Antalya güzellik salonu"
+  },
+  {
+    "title": "Aris Ezgi Doğan Antalya Güzellik Merkezi",
+    "categoryName": "Güzellik Salonu",
+    "phone": "0543 242 86 00",
+    "totalScore": 4.4,
+    "reviewsCount": 514,
+    "address": "Lara, Fener, Bülent Ecevit Blv. no:43/D, 07180 Muratpaşa/Antalya",
+    "openingHours": "Kapalı ⋅ Açılış zamanı: Per 09:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLe14ghLUeBrFK71RqdVKccTxPmQnlvYRWvJgtajFNYhXWAyoiX6zLj9OyXNsQUGLQ_X1yH9rAVWoO6-JST4X7GKWXu4Jy3hQL1106v4HYsboK_SZWdug_K1xZREhWk7irqRqYJr=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Güzellik Salonu",
+      "Güzellik Uzmanı",
+      "Güzellik Okulu"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJqUSG822bwxQRAQZC3nDlNbM",
+    "source": "SerpAPI",
+    "query": "Antalya güzellik salonu"
+  },
+  {
+    "title": "Antalya Güzellik Dünyası Katre-i Şifa (Bay ve Bayan)",
+    "categoryName": "Güzellik Salonu",
+    "phone": "0533 719 01 04",
+    "totalScore": 5,
+    "reviewsCount": 11,
+    "address": "Mehmet Akif Ersoy, Osman Yüksel Serdengeçti Cd., 07320 Kepez/Antalya",
+    "openingHours": "Kapalı ⋅ Açılış zamanı: Per 10:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLesUoxmAITOj3B2G6Ez_g1R6pMLw7F4ZhmK1TsAd_D9bgK4hPgw8Jw6eaoTvldIatD821OQoaCq0hZtfZUZnqIXZjEvfvgz7PJeanssQDJwOXUzR1a_uF9B2BoGg1ioRN4u9T5JUa61fHRp=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Güzellik Salonu"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJ293Zpq6FwxQRXQKhGk5bba8",
+    "source": "SerpAPI",
+    "query": "Antalya güzellik salonu"
+  },
+  {
+    "title": "Balıkçı Meyhanesi Kaleiçi",
+    "categoryName": "Restoran",
+    "phone": "0542 220 09 68",
+    "totalScore": 4.8,
+    "reviewsCount": 6052,
+    "address": "Kılınçarslan, Hıdırlık Sk. No:17, 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfAgqRTMFywgRAg9y3foriOibc3_9-9g6p116VS2G0SjW61mT6PeWAOi8-Qn0nSKU_fG9woqBl2mGGUb4tepna0UyGskw4UvkP0Yw8Eqllkk2DUkz_H3BWnOftASYXGCZrSk2un-Czv8zL9=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran",
+      "Balık Restoranı",
+      "Meyhane"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJ7VqtlgWQwxQRy-M6r1hhj2Y",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "ARAFİLBOYU Meyhanesi",
+    "categoryName": "Meyhane",
+    "phone": "0532 661 08 95",
+    "totalScore": 4.9,
+    "reviewsCount": 713,
+    "address": "Kılınçarslan, Hıdırlık Sk. 18/1, 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdSha1e4i6bPi4FsRyAQ84UfeSIMonKV-LtwQo5IvyGmw8wJlAyB9Ty2DzRPAk9W3W84CaA-G7iQ8RpkYwNupW1FOGSp7gj0U-mJunpPv38Ld72As81WKVkwffDPj1pK14Mg5ZEaIcVgmio=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Meyhane"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJS50BMEyRwxQRZY-Q3RvT7rQ",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Anason Ocakbaşı Kaleiçi",
+    "categoryName": "Restoran",
+    "phone": "0539 989 98 99",
+    "totalScore": 4.7,
+    "reviewsCount": 124,
+    "address": "Balbey, sobacılar çarşısı, 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeXXe84Z2NtrgFTXY8-_VNBWFd7fBm5x_0GlN6TcNjReoa4G5DMbHO_JYDStrDJWiMVFmSJ1xorTBMuHo15E6_WRKrA3CNgXwG-fHSWqzwGl-gZh-Iayw4jm8PVqU_SqhH681F9=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran",
+      "Et Lokantası",
+      "Meyhane"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJm7u6rHGRwxQRvobV_Fl1up0",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Antalya",
+    "categoryName": "Restoran",
+    "phone": "0507 707 41 41",
+    "totalScore": 5,
+    "reviewsCount": 27,
+    "address": "Şirinyalı mah. Eski Lara yolu, 1506. Sk. No:12, 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcfmXMPkcPl-XxvphuWdQXli6mWlSaajvkBA0jcu9gsYfaJeuGaURTYJLV0eByfFO2TjZQ8bSkWvqGBCdPpYVGSNARUgIWCGuRvas53FavNecdB8R1O4BninYC_lA3kFRi2tW5G=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran",
+      "Çocuk Dostu Kafe"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJZdNMqyWbwxQRjjn_XS3oW1o",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Kırık Kadeh Meyhane",
+    "categoryName": "Meyhane",
+    "phone": "0532 557 50 07",
+    "totalScore": 4.8,
+    "reviewsCount": 129,
+    "address": "Kılıçarslan Mah, Sakarya Sk. No:9 D:07100, 07007 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  02:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLctCF7bCH4LC6fqDJfilbsspiVxMPFniCwPyZIAS0LpphG0qnLLX-YwGwL340PegtLxyQFmmK_nUoy6f_JOgOGD3odvbYIkaCT0GTBLh5-L_v2HEKqTX96oXUXiD1BxNWi8mm4q9_syTEVt=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Meyhane"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJiwzm4vCRwxQRY0Kqj9YANGI",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Onurlu meyhane",
+    "categoryName": "Restoran",
+    "phone": "0551 554 81 95",
+    "totalScore": 4.5,
+    "reviewsCount": 287,
+    "address": "Arapsuyu mah. Belediye cad.Şenoğlu apt, NO:29/A, 07070 Konyaaltı/Antalya",
+    "openingHours": "Açık · Kapanış saati:  00:30",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfb9lYB_AIjKgGNVCFWkbjrhabLs7-9PcMPNdx3S-Kco_frzsP-u9b-Vg-BM8-oc5euhW48HhmYHq3kjtLvAL9jfcRilHpZ1pf3WjiPABUMLBiWAXWZuZVsxzkVe4mHLbMK_u-Y=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJGXp-EwiRwxQRUvlzkwudpKM",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Dırdır Yeni Nesil Meyhane",
+    "categoryName": "Meyhane",
+    "phone": "0505 624 78 03",
+    "totalScore": 5,
+    "reviewsCount": 22,
+    "address": "Altınkum, Mustafa Kemal Bulv.414 Sk No:1/1, 07070 Konyaaltı/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLf86_FOW1KAJuBD4R4gkPcPizgaE_bWdnrvWjOEFGt_2t2dXgbOtsmJ_LgTFgUnL7jZQ-WTIV5u3xF3VtxvZDr8oX8IXZ9hukYkxh0JVF9EUGkka4cqq9s0SWB-r7uUPKBY8aHnXrGgdt5_=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Meyhane"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJ-xhpjUuRwxQRpxbtbSHUgus",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Hikaye Antalya",
+    "categoryName": "Meyhane",
+    "phone": "0549 800 43 13",
+    "totalScore": 4.5,
+    "reviewsCount": 724,
+    "address": "Konyaaltı · Reo Hotel altında, Arapsuyu, Akdeniz Blv. No:70, 07070 Konyaaltı/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLd5xgpGgDplze4_HMdLtoWjO4UoO9K7Ydtn28tu0L5Xck8U5N2r7wffYizJ1kKf4Mw6mlnTOq6Tah2hohs4CBO4iVakCs4a7KziSrvNULw3MmE6rmaikELmHt4M7RspmENtutkdjG_6vhM=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Meyhane"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJiyTcxNORwxQR1WHL6bJzeko",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Leyla Meyhanesi",
+    "categoryName": "Restoran",
+    "phone": "0531 336 47 07",
+    "totalScore": 4.5,
+    "reviewsCount": 2110,
+    "address": "Kılıçarslan mah, Hıdırlık Sk. No:20, 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeik06SVgKbz8J9Ysy6goCTabEzodHKSxilBIratAB4FR7DQU2KL1bgajJZmF1l0gTHajiGCYOUjJk2k_w1Ifv_gB8vq7HettScrnYXAqqKSbcr7MCSo17x4sJfkdBFrWMsWTkZQUXjZNb7=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJ4d_zAUCRwxQRuPZEZZW_gko",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Yenikapı Meyhanesi",
+    "categoryName": "Restoran",
+    "phone": "0505 051 24 00",
+    "totalScore": 4.1,
+    "reviewsCount": 138,
+    "address": "Kılınçarslan, Yeni Kapı Sk. No:9-11, 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdcejAlpoKLkWCS8_Yc96UalkXAmWFsjiQQsakTi--tRCQTcukIJgRBQPdMvMoXxMa2D59nwLHliYTai2ijmXOHkEP0xEM_RXQZm_hcazu2qxCuLhOgSiy8hKE16OnnTTW92lkH=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJ34WQhuqRwxQR-byiqq5ASlo",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Ebi DNA ORGANİZASYON",
+    "categoryName": "Meyhane",
+    "phone": "0536 422 19 79",
+    "totalScore": 4.8,
+    "reviewsCount": 41,
+    "address": "Çağlayan, Fener Cd. Erdoğan iş merkezi No 12 Kat: 3, 07230 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfXRIdrMbFUcBDyj2Nq1m1cTeOwqB7UYV7kWkr6cmGeDSAXktC5eHJGi_IgHJV785DObzawhuumHJNU2yKuQc5nWaYDrZc8rjqZUpdiLtvTwRZ7CG5OXUs51OL2pg7iE_x1gpIU=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Meyhane"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJjWWvfz-bwxQRfwjs2ijCXlA",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Ayyaş Meyhane",
+    "categoryName": "Restoran",
+    "phone": "0544 640 01 55",
+    "totalScore": 4.4,
+    "reviewsCount": 657,
+    "address": "Kılınçarslan, Hamam Sk. No:1, 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfPWQEFX6PYysyb3HZVYlIOBwe4CGV3JRiXvM6_0pPQ7T0H6MKTOrvV43FtzfM6XzdA53kj2TFJMp_rUNgkAg5MOFZo0cUdEmOFuETkGPkCycDYtx1stxpR3JRib7sF4AW9EWVF=w1000-h1000-c-n",
+    "description": "Eski tarz Türk meyhanesi. Eski tarz, sakin bir ortamda geleneksel Türk yemekleri ve alkollü içecekler servis eden, canlı müzikli mekan.",
+    "highlights": [
+      "Restoran"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJ-aZzZwaQwxQR7VIxLpvWXBY",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  },
+  {
+    "title": "Taka Karadeniz Meyhanesi",
+    "categoryName": "Meyhane",
+    "phone": "0533 644 07 61",
+    "totalScore": 4.2,
+    "reviewsCount": 835,
+    "address": "Selçuk, İzmirli Ali Efendi Sk. No:13, 07100 Muratpaşa/Antalya",
+    "openingHours": "Açık · Kapanış saati:  01:00",
+    "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLc3Zb-FHlEt906wOq9x8xQKQj-vJM3TRpYqyFo3ZiPZ6vgeRmUaojGUS2k3HM32MVGaTYrmzXqIWoibTzt-5wLv03uNM2aA-PCl1kcBepkI9F3Yn1BBkYU-nr92PJcNHmhBiLBqng=w1000-h1000-c-n",
+    "description": "",
+    "highlights": [
+      "Meyhane"
+    ],
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJ2ci9-AWQwxQRgt1ZsKFrLSQ",
+    "source": "SerpAPI",
+    "query": "Antalya meyhane"
+  }
+]

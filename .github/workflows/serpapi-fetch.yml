@@ -1,0 +1,88 @@
+name: SerpAPI Antalya İşletme Çek & Yayınla
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "Google Haritalar Arama Kelimesi (örn: Antalya butik otel, Alanya kafe, Kaş restoran)"
+        required: true
+        default: "Antalya kafe"
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-serpapi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch real Antalya businesses via SerpAPI
+        env:
+          SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+          SEARCH_QUERY: ${{ inputs.query }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.parse, urllib.request
+
+          key = os.environ.get("SERPAPI_API_KEY", "").strip()
+          query = os.environ.get("SEARCH_QUERY", "Antalya kafe").strip()
+          if not key:
+              raise SystemExit("SERPAPI_API_KEY secret tanımlı değil! Settings -> Secrets -> Actions kısmına ekleyin.")
+
+          url = "https://serpapi.com/search.json?" + urllib.parse.urlencode({
+              "engine": "google_maps",
+              "q": query,
+              "ll": "@36.8969,30.7133,11z",
+              "hl": "tr",
+              "gl": "tr",
+              "api_key": key,
+          })
+          with urllib.request.urlopen(url, timeout=30) as resp:
+              data = json.loads(resp.read().decode("utf-8"))
+
+          path = "public/antalya-live-leads.json"
+          existing = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else []
+          seen = {(x.get("title") or "").strip().lower() for x in existing}
+          social = ("instagram.com", "facebook.com", "fb.com", "linktr.ee", "wa.me", "tiktok.com")
+
+          added = 0
+          for item in data.get("local_results", []):
+              site = (item.get("website") or "").lower()
+              has_real_site = bool(site) and not any(s in site for s in social)
+              phone = (item.get("phone") or "").strip()
+              title = (item.get("title") or "").strip()
+              if has_real_site or not phone or not title or title.lower() in seen:
+                  continue
+              seen.add(title.lower())
+              existing.insert(0, {
+                  "title": title,
+                  "categoryName": item.get("type") or query.replace("Antalya ", "").title(),
+                  "phone": phone,
+                  "totalScore": item.get("rating"),
+                  "reviewsCount": item.get("reviews") or 0,
+                  "address": item.get("address") or "",
+                  "openingHours": item.get("open_state") or item.get("hours") or "Her gün açık",
+                  "imageUrl": item.get("thumbnail") or "",
+                  "description": item.get("description") or "",
+                  "highlights": (item.get("types") or [])[:3],
+                  "url": f"https://www.google.com/maps/place/?q=place_id:{item['place_id']}" if item.get("place_id") else "",
+                  "source": "SerpAPI",
+                  "query": query,
+              })
+              added += 1
+
+          os.makedirs("public", exist_ok=True)
+          with open(path, "w", encoding="utf-8") as f:
+              json.dump(existing, f, ensure_ascii=False, indent=2)
+          print(f"SerpAPI '{query}': {added} yeni işletme eklendi (Toplam havuz: {len(existing)})")
+          PY
+
+      - name: Commit updated Antalya pool
+        run: |
+          git config user.name "LIKYA Bot"
+          git config user.email "bot@likyastudios.live"
+          git add public/antalya-live-leads.json
+          git diff --staged --quiet || git commit -m "SerpAPI: ${{ inputs.query }} işletmeleri eklendi"
+          git push

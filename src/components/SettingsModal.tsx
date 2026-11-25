@@ -61,7 +61,20 @@ export function SettingsModal({
         <form onSubmit={handleSubmit} className="p-5 space-y-4 overflow-y-auto">
           <div>
             <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-              Apify API Token (Tarayıcınızda güvenle saklanır)
+              Outscraper API Key (Ayda 500 işletme ÜCRETSİZ · Doğrudan tarayıcıdan çalışır)
+            </label>
+            <input
+              type="password"
+              value={draft.outscraperKey}
+              onChange={(e) => setDraft({ ...draft, outscraperKey: e.target.value })}
+              placeholder="app.outscraper.com/profile → API Key"
+              className="input-dark w-full rounded-lg px-3.5 py-2.5 text-sm font-mono-num"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-zinc-300 mb-1.5">
+              Apify API Token (Opsiyonel · Tarayıcınızda güvenle saklanır)
             </label>
             <input
               type="password"
@@ -71,7 +84,7 @@ export function SettingsModal({
               className="input-dark w-full rounded-lg px-3.5 py-2.5 text-sm font-mono-num"
             />
             <p className="mt-1 text-[11px] text-zinc-500">
-              Token yalnızca bu cihazın yerel deposunda saklanır; GitHub'a gönderilmez.
+              Anahtarlar yalnızca bu cihazda saklanır. OpenStreetMap ve SerpAPI Havuzu anahtarsız çalışır.
             </p>
           </div>
 

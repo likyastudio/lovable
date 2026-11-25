@@ -14,11 +14,15 @@ import type { Lead, LeadStatus, PanelSettings, VenueDesignPreset } from "./types
 import { VALID_STATUSES } from "./types";
 import {
   detectVenuePreset,
-  fetchFromApifyLive,
   getInitialSeedLeads,
   normalizeRawItemToLead,
   parseCsvText,
 } from "./lib/apify";
+import {
+  fetchFromSerpApiPool,
+  runLeadProvider,
+  type LeadProvider,
+} from "./lib/providers";
 import {
   buildMessageForTemplate,
   isMobilePhone,
@@ -61,9 +65,11 @@ interface ToastItem {
 
 function loadInitialSettings(): PanelSettings {
   const envToken = (import.meta.env.VITE_APIFY_API_TOKEN as string | undefined) || "";
+  const envOutscraper = (import.meta.env.VITE_OUTSCRAPER_API_KEY as string | undefined) || "";
   const envPin = (import.meta.env.VITE_PANEL_PIN as string | undefined) || "2026";
   const defaults: PanelSettings = {
     apifyToken: envToken,
+    outscraperKey: envOutscraper,
     siteUrl: "https://likyastudios.live/isletmeler",
     senderName: "Açelya",
     senderPhone: "+90 545 776 05 57",
@@ -81,6 +87,7 @@ function loadInitialSettings(): PanelSettings {
       senderPhone: parsed.senderPhone || "+90 545 776 05 57",
       defaultPreset: parsed.defaultPreset || "auto",
       apifyToken: parsed.apifyToken || envToken,
+      outscraperKey: parsed.outscraperKey || envOutscraper,
     };
   } catch {
     return defaults;
@@ -112,7 +119,8 @@ export default function App() {
     );
   });
 
-  // Apify fetch controls — All Antalya by default
+  // Multi-source fetch controls — All Antalya by default
+  const [provider, setProvider] = useState<LeadProvider>("osm");
   const [apifyQuery, setApifyQuery] = useState("Antalya kafe");
   const [apifyLimit, setApifyLimit] = useState(15);
   const [noWebsiteOnly, setNoWebsiteOnly] = useState(true);
@@ -155,6 +163,28 @@ export default function App() {
       // ignore
     }
   }, [settings]);
+
+  // Auto-load real SerpAPI Antalya pool (public/antalya-live-leads.json) once so real leads appear immediately
+  useEffect(() => {
+    const syncKey = "likya_panel_v2_serpapi_synced_v1";
+    if (localStorage.getItem(syncKey)) return;
+    fetchFromSerpApiPool({
+      query: "",
+      noWebsiteOnly: true,
+      phoneOnly: true,
+      siteUrl: settings.siteUrl,
+      senderName: settings.senderName,
+    })
+      .then((res) => {
+        if (res.leads.length > 0) {
+          mergeIncomingLeads(res.leads);
+          localStorage.setItem(syncKey, "1");
+        }
+      })
+      .catch(() => {
+        // ignore if pool json absent
+      });
+  }, []);
 
   function notify(message: string, tone: "default" | "success" | "error" = "default") {
     const id = Date.now() + Math.random();
@@ -209,40 +239,45 @@ export default function App() {
 
   async function handleApifyFetch(overrideQuery?: string) {
     const targetQuery = (overrideQuery ?? apifyQuery).trim();
-    if (!targetQuery) {
+    if (!targetQuery && provider !== "serpapi_pool") {
       notify("Lütfen arama kelimesi girin (örn: Antalya kafe)", "error");
       return;
     }
-    if (!settings.apifyToken.trim()) {
-      notify("Canlı veri çekmek için önce Ayarlar'dan Apify API Token girin", "error");
-      setSettingsOpen(true);
-      return;
-    }
+
+    const providerLabels: Record<LeadProvider, string> = {
+      osm: "OpenStreetMap (Ücretsiz)",
+      serpapi_pool: "SerpAPI Antalya Havuzu",
+      outscraper: "Outscraper (Google Maps)",
+      apify: "Apify (Google Maps)",
+    };
 
     setIsFetchingApify(true);
     setFetchStatusMsg(
-      `Tüm Antalya bölgesinde Apify taranıyor: "${targetQuery}"... (15–45 sn sürebilir)`
+      `${providerLabels[provider]} ile tüm Antalya taranıyor: "${targetQuery || "Tümü"}"...`
     );
 
     try {
-      const res = await fetchFromApifyLive({
-        token: settings.apifyToken,
+      const res = await runLeadProvider({
+        provider,
         query: targetQuery,
         limit: apifyLimit,
         noWebsiteOnly,
         phoneOnly,
         siteUrl: settings.siteUrl,
         senderName: settings.senderName,
+        apifyToken: settings.apifyToken,
+        outscraperKey: settings.outscraperKey,
       });
 
       const { added, updated } = mergeIncomingLeads(res.leads);
-      const summary = `Tamamlandı: ${res.fetched} yer tarandı → ${added} yeni eklendi, ${updated} güncellendi (${res.skippedWithSite} siteli, ${res.skippedNoPhone} telefonsuz elendi).`;
+      const summary = `${providerLabels[provider]}: ${res.fetched} kayıt incelendi → ${added} yeni eklendi, ${updated} güncellendi (${res.skippedWithSite} siteli, ${res.skippedNoPhone} telefonsuz elendi).`;
       setFetchStatusMsg(summary);
       notify(summary, "success");
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Bilinmeyen Apify hatası";
+      const msg = err instanceof Error ? err.message : "Tarama sırasında hata oluştu";
       setFetchStatusMsg(`Hata: ${msg}`);
       notify(msg, "error");
+      if (msg.includes("Ayarlar")) setSettingsOpen(true);
     } finally {
       setIsFetchingApify(false);
     }
@@ -472,14 +507,10 @@ export default function App() {
             <button
               type="button"
               onClick={() => setSettingsOpen(true)}
-              className={`text-xs px-3 py-1.5 rounded-lg border inline-flex items-center gap-1.5 transition ${
-                settings.apifyToken
-                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/15"
-                  : "border-amber-500/35 bg-amber-500/10 text-amber-300 hover:bg-amber-500/15"
-              }`}
+              className="text-xs px-3 py-1.5 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 text-zinc-200 inline-flex items-center gap-1.5 transition"
             >
-              <Settings className="w-3.5 h-3.5" />
-              <span>{settings.apifyToken ? "Apify Bağlı · Ayarlar" : "Apify Token Gir"}</span>
+              <Settings className="w-3.5 h-3.5 text-[#D4A853]" />
+              <span>Ayarlar &amp; API</span>
             </button>
 
             <button
@@ -561,15 +592,35 @@ export default function App() {
           </div>
         </section>
 
-        {/* 2. Live All-Antalya Apify Scraper Bar */}
-        <section aria-label="Apify Canlı İşletme Çekme" className="surface-card rounded-2xl p-4 sm:p-5 space-y-3.5">
+        {/* 2. Multi-Source All-Antalya Lead Fetch Bar */}
+        <section aria-label="Çok Kaynaklı İşletme Çekme" className="surface-card rounded-2xl p-4 sm:p-5 space-y-3.5">
           <div className="flex flex-col lg:flex-row lg:items-end gap-3.5">
+            <div className="w-full lg:w-64">
+              <label
+                htmlFor="providerSelect"
+                className="block text-[11px] font-mono-num uppercase tracking-wider text-zinc-400 mb-1.5"
+              >
+                Veri Kaynağı
+              </label>
+              <select
+                id="providerSelect"
+                value={provider}
+                onChange={(e) => setProvider(e.target.value as LeadProvider)}
+                className="input-dark w-full rounded-xl px-3 py-2.5 text-sm text-[#E5BE6F]"
+              >
+                <option value="osm">OpenStreetMap (100% Ücretsiz · Anahtarsız)</option>
+                <option value="serpapi_pool">SerpAPI Antalya Havuzu (Gerçek · Hazır)</option>
+                <option value="outscraper">Outscraper (500 Ücretsiz/Ay · Google Maps)</option>
+                <option value="apify">Apify (Google Maps)</option>
+              </select>
+            </div>
+
             <div className="flex-1">
               <label
                 htmlFor="apifyQueryInput"
                 className="block text-[11px] font-mono-num uppercase tracking-wider text-zinc-400 mb-1.5"
               >
-                Tüm Antalya Google Haritalar Taraması (Apify Canlı)
+                Tüm Antalya Arama Kelimesi
               </label>
               <input
                 id="apifyQueryInput"
@@ -633,12 +684,12 @@ export default function App() {
               {isFetchingApify ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Antalya Taranıyor...</span>
+                  <span>Taranıyor...</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  <span>Apify ile İşletme Çek</span>
+                  <span>İşletme Çek</span>
                 </>
               )}
             </button>
