@@ -124,3 +124,74 @@ export async function getLatestScraperRun(
     created_at: run.created_at,
   };
 }
+
+/**
+ * Direct browser Apify Google Maps Scraper (compass~crawler-google-places, full CORS).
+ */
+export async function fetchFromApifyLive(params: {
+  token: string;
+  query: string;
+  limit: number;
+  siteUrl: string;
+  senderName: string;
+  senderPhone: string;
+}): Promise<{
+  fetched: number;
+  leads: Lead[];
+  skippedWithSite: number;
+  skippedNoPhone: number;
+}> {
+  const { token, query, limit, siteUrl, senderName, senderPhone } = params;
+  const endpoint = `https://api.apify.com/v2/acts/compass~crawler-google-places/run-sync-get-dataset-items?token=${encodeURIComponent(
+    token.trim()
+  )}&format=json&clean=true`;
+
+  const resp = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      searchStringsArray: [query.trim()],
+      maxCrawledPlacesPerSearch: Math.max(1, Math.min(limit, 50)),
+      language: "tr",
+      countryCode: "tr",
+      includeWebResults: false,
+      maxImages: 1,
+      scrapePlaceDetailPage: false,
+    }),
+  });
+
+  if (!resp.ok) {
+    const errText = await resp.text().catch(() => "");
+    throw new Error(
+      resp.status === 401
+        ? "Apify API Token geçersiz (401). Ayarlar'dan kontrol edin."
+        : `Apify hatası (HTTP ${resp.status}): ${errText.slice(0, 140)}`
+    );
+  }
+
+  const rawItems: Record<string, unknown>[] = await resp.json();
+  const items = Array.isArray(rawItems) ? rawItems : [];
+
+  const leads: Lead[] = [];
+  let skippedWithSite = 0;
+  let skippedNoPhone = 0;
+
+  for (const raw of items) {
+    const { lead, hasWebsite, hasPhone } = normalizeScrapedRecord(
+      { ...raw, source: "Apify" },
+      { defaultDistrict: "Antalya", siteUrl, senderName, senderPhone }
+    );
+    if (!lead) continue;
+    if (hasWebsite) {
+      skippedWithSite++;
+      continue;
+    }
+    if (!hasPhone) {
+      skippedNoPhone++;
+      continue;
+    }
+    leads.push(lead);
+  }
+
+  return { fetched: items.length, leads, skippedWithSite, skippedNoPhone };
+}

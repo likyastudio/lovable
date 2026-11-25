@@ -61,7 +61,20 @@ export function SettingsModal({
         <form onSubmit={handleSubmit} className="p-5 space-y-4 overflow-y-auto">
           <div>
             <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-              GitHub Token (Opsiyonel — Panelden tek tıkla gosom/SerpAPI taraması başlatır)
+              Apify API Token (Doğrudan panelden canlı Google Maps taraması için)
+            </label>
+            <input
+              type="password"
+              value={draft.apifyToken}
+              onChange={(e) => setDraft({ ...draft, apifyToken: e.target.value })}
+              placeholder="apify_api_..."
+              className="input-dark w-full rounded-lg px-3.5 py-2.5 text-sm font-mono-num"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-zinc-300 mb-1.5">
+              GitHub Token (Opsiyonel — gosom/SerpAPI motorunu panelden tek tıkla başlatır)
             </label>
             <input
               type="password"
@@ -71,8 +84,7 @@ export function SettingsModal({
               className="input-dark w-full rounded-lg px-3.5 py-2.5 text-sm font-mono-num"
             />
             <p className="mt-1 text-[11px] text-zinc-500">
-              Token girmeden de &quot;GitHub&apos;da Çalıştır&quot; butonuyla tarama başlatıp
-              &quot;Listeyi Yenile&quot; diyerek tüm gerçek işletmeleri çekebilirsiniz.
+              Tüm anahtarlar yalnızca bu cihazın yerel deposunda saklanır; GitHub&apos;a gönderilmez.
             </p>
           </div>
 

@@ -75,7 +75,7 @@ export const VENUE_DESIGN_OPTIONS: {
   },
 ];
 
-export type ScraperEngine = "gosom" | "serpapi";
+export type ScraperEngine = "apify" | "gosom" | "serpapi";
 
 export type MessageTemplateKey = "first_touch" | "short_direct" | "follow_up";
 
@@ -104,6 +104,7 @@ export interface Lead {
 }
 
 export interface PanelSettings {
+  apifyToken: string;
   githubToken: string;
   siteUrl: string;
   senderName: string;

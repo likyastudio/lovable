@@ -28,6 +28,7 @@ import {
 } from "./lib/leadParser";
 import {
   dispatchGithubScraperWorkflow,
+  fetchFromApifyLive,
   fetchLatestLiveLeads,
   getLatestScraperRun,
   GITHUB_ACTIONS_URL,
@@ -74,9 +75,18 @@ interface ToastItem {
 }
 
 function loadInitialSettings(): PanelSettings {
+  const envApifyToken = (import.meta.env.VITE_APIFY_API_TOKEN as string | undefined) || "";
   const envGithubToken = (import.meta.env.VITE_GITHUB_TOKEN as string | undefined) || "";
   const envPin = (import.meta.env.VITE_PANEL_PIN as string | undefined) || "2026";
+  let legacyApify = "";
+  try {
+    const oldRaw = localStorage.getItem("likya_panel_v2_settings");
+    if (oldRaw) legacyApify = JSON.parse(oldRaw)?.apifyToken || "";
+  } catch {
+    // ignore
+  }
   const defaults: PanelSettings = {
+    apifyToken: envApifyToken || legacyApify,
     githubToken: envGithubToken,
     siteUrl: "https://likyastudios.live/isletmeler",
     senderName: "Açelya",
@@ -92,6 +102,7 @@ function loadInitialSettings(): PanelSettings {
     return {
       ...defaults,
       ...parsed,
+      apifyToken: parsed.apifyToken || envApifyToken || legacyApify,
       senderPhone: parsed.senderPhone || "+90 545 776 05 57",
       defaultPreset: parsed.defaultPreset || "auto",
       githubToken: parsed.githubToken || envGithubToken,
@@ -126,8 +137,8 @@ export default function App() {
     );
   });
 
-  // GitHub Open-Source Scraper controls
-  const [engine, setEngine] = useState<ScraperEngine>("gosom");
+  // Multi-Engine Controls: Apify (Live Browser) + gosom (Free GitHub) + SerpAPI (GitHub)
+  const [engine, setEngine] = useState<ScraperEngine>("apify");
   const [query, setQuery] = useState("Antalya kafe");
   const [depth, setDepth] = useState(2);
   const [isScraping, setIsScraping] = useState(false);
@@ -264,7 +275,41 @@ export default function App() {
       return;
     }
 
-    // If no GitHub token saved yet, copy query and open GitHub Actions Run Workflow page directly
+    // 1. Apify runs directly from browser with full CORS!
+    if (engine === "apify") {
+      if (!settings.apifyToken.trim()) {
+        notify("Apify taraması için Ayarlar'dan Apify API Token'ınızı girin", "error");
+        setSettingsOpen(true);
+        return;
+      }
+      setIsScraping(true);
+      const limitMap: Record<number, number> = { 1: 10, 2: 20, 3: 35 };
+      const limit = limitMap[depth] || 20;
+      setScrapeStatusMsg(`Apify ile tüm Antalya taranıyor: "${cleanQuery}"... (15–45 sn sürebilir)`);
+      try {
+        const res = await fetchFromApifyLive({
+          token: settings.apifyToken,
+          query: cleanQuery,
+          limit,
+          siteUrl: settings.siteUrl,
+          senderName: settings.senderName,
+          senderPhone: settings.senderPhone,
+        });
+        const { added, updated } = mergeIncomingLeads(res.leads);
+        const summary = `Apify tamamlandı: ${res.fetched} yer tarandı → ${added} yeni eklendi, ${updated} güncellendi (${res.skippedWithSite} siteli, ${res.skippedNoPhone} telefonsuz elendi).`;
+        setScrapeStatusMsg(summary);
+        notify(summary, "success");
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "Apify hatası";
+        setScrapeStatusMsg(`Hata: ${msg}`);
+        notify(msg, "error");
+      } finally {
+        setIsScraping(false);
+      }
+      return;
+    }
+
+    // 2. gosom / SerpAPI run on GitHub Actions
     if (!settings.githubToken.trim()) {
       try {
         await navigator.clipboard.writeText(cleanQuery);
@@ -665,7 +710,7 @@ export default function App() {
                 htmlFor="engineSelect"
                 className="block text-[11px] font-mono-num uppercase tracking-wider text-zinc-400 mb-1.5"
               >
-                GitHub Açık Kaynak Motoru
+                Tarama Motoru
               </label>
               <select
                 id="engineSelect"
@@ -673,8 +718,9 @@ export default function App() {
                 onChange={(e) => setEngine(e.target.value as ScraperEngine)}
                 className="input-dark w-full rounded-xl px-3 py-2.5 text-sm text-[#E5BE6F]"
               >
-                <option value="gosom">gosom/google-maps-scraper (%100 Ücretsiz)</option>
-                <option value="serpapi">SerpAPI Google Maps (Hızlı · 250 Ücretsiz/Ay)</option>
+                <option value="apify">Apify Google Maps (Canlı · Doğrudan Panelden)</option>
+                <option value="gosom">gosom/google-maps-scraper (GitHub · %100 Ücretsiz)</option>
+                <option value="serpapi">SerpAPI Google Maps (GitHub · 250 Ücretsiz/Ay)</option>
               </select>
             </div>
 
@@ -701,7 +747,7 @@ export default function App() {
                 htmlFor="depthSelect"
                 className="block text-[11px] font-mono-num uppercase tracking-wider text-zinc-400 mb-1.5"
               >
-                Derinlik
+                Miktar
               </label>
               <select
                 id="depthSelect"
@@ -709,9 +755,9 @@ export default function App() {
                 onChange={(e) => setDepth(Number(e.target.value))}
                 className="input-dark w-full rounded-xl px-3 py-2.5 text-sm"
               >
-                <option value={1}>Hızlı (1)</option>
-                <option value={2}>Orta (2)</option>
-                <option value={3}>Derin (3)</option>
+                <option value={1}>Hızlı (10)</option>
+                <option value={2}>Orta (20)</option>
+                <option value={3}>Derin (35)</option>
               </select>
             </div>
 
@@ -725,7 +771,12 @@ export default function App() {
                 {isScraping ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>GitHub Taranıyor...</span>
+                    <span>Taranıyor...</span>
+                  </>
+                ) : engine === "apify" ? (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    <span>Apify ile İşletme Çek</span>
                   </>
                 ) : (
                   <>
@@ -735,7 +786,7 @@ export default function App() {
                       <Github className="w-4 h-4" />
                     )}
                     <span>
-                      {settings.githubToken ? "Canlı Tarama Başlat" : "GitHub'da Başlat ↗"}
+                      {settings.githubToken ? "GitHub Tarama Başlat" : "GitHub'da Başlat ↗"}
                     </span>
                   </>
                 )}
