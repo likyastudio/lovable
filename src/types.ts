@@ -109,6 +109,7 @@ export interface PanelSettings {
   apifyToken: string;
   siteUrl: string;
   senderName: string;
+  senderPhone: string;
   defaultPreset: VenueDesignPreset;
   panelPin: string;
   pinEnabled: boolean;

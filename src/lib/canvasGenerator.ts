@@ -805,7 +805,7 @@ export async function renderMobileMockupDataUrl(
 
   ctx.font = "600 13px 'JetBrains Mono', monospace";
   ctx.fillStyle = p.accentText;
-  ctx.fillText("LIKYA STUDIOS · Ücretsiz Ön Tasarım · likyastudios.live", 102, 1142);
+  ctx.fillText("LIKYA STUDIOS · likyastudios.live · 0545 776 05 57", 102, 1142);
 
   // Home indicator bar
   drawRoundedRect(ctx, W / 2 - 74, H - 58, 148, 7, 4);
@@ -927,7 +927,7 @@ export async function renderQrCardDataUrl(
 
   ctx.font = "600 15px 'JetBrains Mono', monospace";
   ctx.fillStyle = p.textSecondary;
-  ctx.fillText("likyastudios.live", W / 2, 884);
+  ctx.fillText("likyastudios.live  ·  0545 776 05 57", W / 2, 884);
 
   return canvas.toDataURL("image/png");
 }

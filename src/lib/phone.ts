@@ -83,7 +83,8 @@ export function buildMessageForTemplate(
   lead: Pick<Lead, "business_name" | "category" | "district" | "google_rating" | "reviews_count">,
   template: MessageTemplateKey = "first_touch",
   siteUrl = "https://likyastudios.live/isletmeler",
-  senderName = "Açelya"
+  senderName = "Açelya",
+  senderPhone = "+90 545 776 05 57"
 ): string {
   const ratingPart =
     lead.google_rating && lead.reviews_count
@@ -107,13 +108,14 @@ export function buildMessageForTemplate(
       : "TR/EN tek sayfa web sitesi ve QR hizmet kartı taslağı";
 
   const districtPrefix = lead.district ? `${lead.district} bölgesinde ` : "Antalya'da ";
+  const signOff = `${senderName} · LIKYA STUDIOS · ${senderPhone}`;
 
   if (template === "short_direct") {
     return (
       `Merhaba, ben ${senderName} — LIKYA STUDIOS (${siteUrl}). ` +
       `${lead.business_name} için ücretsiz bir mobil site ve QR menü önizlemesi hazırladım. ` +
       `Kurulum ücreti olmadan, sadece aylık bakım modeliyle birkaç günde yayına alıyoruz. ` +
-      `Örnek görselleri buradan göndermemi ister misiniz?`
+      `Örnek görselleri buradan göndermemi ister misiniz?\n\n${signOff}`
     );
   }
 
@@ -121,7 +123,7 @@ export function buildMessageForTemplate(
     return (
       `Merhaba, geçen hafta ${lead.business_name} için hazırladığımız ücretsiz web sitesi ve QR menü önizlemesiyle ilgili yazmıştım. ` +
       `Yoğun olduğunuzu biliyorum; örnek görselleri görmek isterseniz "evet" yazmanız yeterli (${siteUrl}). ` +
-      `Yanıt gelmezse bir daha rahatsız etmem.`
+      `Yanıt gelmezse bir daha rahatsız etmem.\n\n${signOff}`
     );
   }
 
@@ -130,6 +132,6 @@ export function buildMessageForTemplate(
     `Google Haritalar'da ${lead.business_name}'ı gördüm${ratingPart}. ` +
     `Profilinizde web sitesi olmadığını fark edince sizin için ücretsiz bir ${offerDetail} hazırladım.\n\n` +
     `${districtPrefix}işletmelere kurulum ücreti olmadan, sadece aylık bakım modeliyle hızlıca kuruyoruz. ` +
-    `Hazırladığım örnek tasarım görsellerini buradan göndermemi ister misiniz? İstemezseniz bir daha yazmam.`
+    `Hazırladığım örnek tasarım görsellerini buradan göndermemi ister misiniz? İstemezseniz bir daha yazmam.\n\n${signOff}`
   );
 }

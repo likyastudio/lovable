@@ -105,6 +105,19 @@ export function SettingsModal({
 
           <div>
             <label className="block text-xs font-medium text-zinc-300 mb-1.5">
+              Kendi WhatsApp Numaranız (İmza &amp; Görsellerde Görünür)
+            </label>
+            <input
+              type="tel"
+              value={draft.senderPhone}
+              onChange={(e) => setDraft({ ...draft, senderPhone: e.target.value })}
+              placeholder="+90 545 776 05 57"
+              className="input-dark w-full rounded-lg px-3 py-2 text-sm font-mono-num"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-zinc-300 mb-1.5">
               Varsayılan Mekan Tasarım Seçimi
             </label>
             <select

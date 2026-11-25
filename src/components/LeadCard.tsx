@@ -41,6 +41,7 @@ interface LeadCardProps {
   defaultPreset: VenueDesignPreset;
   siteUrl: string;
   senderName: string;
+  senderPhone: string;
   onUpdate: (id: string, patch: Partial<Lead>) => void;
   onDelete: (id: string) => void;
   onOpenLightbox: (payload: {
@@ -57,6 +58,7 @@ export function LeadCard({
   defaultPreset,
   siteUrl,
   senderName,
+  senderPhone,
   onUpdate,
   onDelete,
   onOpenLightbox,
@@ -157,7 +159,7 @@ export function LeadCard({
   }
 
   function applyTemplate(tpl: MessageTemplateKey) {
-    const nextMsg = buildMessageForTemplate(lead, tpl, siteUrl, senderName);
+    const nextMsg = buildMessageForTemplate(lead, tpl, siteUrl, senderName, senderPhone);
     setMsgDraft(nextMsg);
     onUpdate(lead.id, { custom_message: nextMsg });
     onNotify("Mesaj şablonu uygulandı");

@@ -66,6 +66,7 @@ function loadInitialSettings(): PanelSettings {
     apifyToken: envToken,
     siteUrl: "https://likyastudios.live/isletmeler",
     senderName: "Açelya",
+    senderPhone: "+90 545 776 05 57",
     defaultPreset: "auto",
     panelPin: envPin,
     pinEnabled: true,
@@ -77,6 +78,7 @@ function loadInitialSettings(): PanelSettings {
     return {
       ...defaults,
       ...parsed,
+      senderPhone: parsed.senderPhone || "+90 545 776 05 57",
       defaultPreset: parsed.defaultPreset || "auto",
       apifyToken: parsed.apifyToken || envToken,
     };
@@ -800,6 +802,7 @@ export default function App() {
                 defaultPreset={settings.defaultPreset}
                 siteUrl={settings.siteUrl}
                 senderName={settings.senderName}
+                senderPhone={settings.senderPhone}
                 onUpdate={handleUpdateLead}
                 onDelete={handleDeleteLead}
                 onOpenLightbox={setLightbox}
