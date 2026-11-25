@@ -247,19 +247,25 @@ export function parseUploadedLeadFile(filename: string, text: string): Record<st
   const trimmed = text.trim();
   if (!trimmed) return [];
 
-  if (lower.endsWith(".jsonl") || (trimmed.startsWith("{") && trimmed.includes("\n{"))) {
-    return trimmed
-      .split(/\r?\n/)
-      .map((line) => line.trim())
-      .filter(Boolean)
-      .map((line) => {
-        try {
-          return JSON.parse(line) as Record<string, unknown>;
-        } catch {
-          return null;
+  if (lower.endsWith(".jsonl") || (trimmed.startsWith("{") && trimmed.includes("\n{")) || (trimmed.startsWith("[") && trimmed.includes("\n["))) {
+    const out: Record<string, unknown>[] = [];
+    for (const line of trimmed.split(/\r?\n/)) {
+      const s = line.trim();
+      if (!s) continue;
+      try {
+        const parsed = JSON.parse(s);
+        if (Array.isArray(parsed)) {
+          for (const el of parsed) {
+            if (el && typeof el === "object") out.push(el as Record<string, unknown>);
+          }
+        } else if (parsed && typeof parsed === "object") {
+          out.push(parsed as Record<string, unknown>);
         }
-      })
-      .filter((x): x is Record<string, unknown> => Boolean(x));
+      } catch {
+        // skip malformed line
+      }
+    }
+    return out;
   }
 
   if (lower.endsWith(".json") || trimmed.startsWith("[")) {
