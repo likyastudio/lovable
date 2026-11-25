@@ -1,5 +1,435 @@
 [
   {
+    "title": "Pasta Antalya Hatice",
+    "categoryName": "Pastane",
+    "phone": "+905334022981",
+    "totalScore": 4.9,
+    "reviewsCount": 74,
+    "address": "Altınova Orta, Mahhalle 110. sk no 6 kat 2 daire 6, 07170 Kepez/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "24 saat açık"
+      ],
+      "Cumartesi": [
+        "24 saat açık"
+      ],
+      "Pazar": [
+        "24 saat açık"
+      ],
+      "Pazartesi": [
+        "24 saat açık"
+      ],
+      "Perşembe": [
+        "24 saat açık"
+      ],
+      "Salı": [
+        "24 saat açık"
+      ],
+      "Çarşamba": [
+        "24 saat açık"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Pasta+Antalya+Hatice&query_place_id=ChIJd9x6kwqFwxQRthBRwz3-rPY",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "Cleopatra’s cake Butik pasta Antalya",
+    "categoryName": "Pastane",
+    "phone": "+905300625707",
+    "totalScore": 5,
+    "reviewsCount": 191,
+    "address": "Varlık, 175. Sk. no8, 07010 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "24 saat açık"
+      ],
+      "Cumartesi": [
+        "24 saat açık"
+      ],
+      "Pazar": [
+        "24 saat açık"
+      ],
+      "Pazartesi": [
+        "Kapalı"
+      ],
+      "Perşembe": [
+        "24 saat açık"
+      ],
+      "Salı": [
+        "24 saat açık"
+      ],
+      "Çarşamba": [
+        "10:00–22:30"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Cleopatra%E2%80%99s+cake+Butik+pasta+Antalya&query_place_id=ChIJBWp7YiSRwxQROnjWJdO-Mzs",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "Dervişoğlu Pastanesi",
+    "categoryName": "Pastane",
+    "phone": "+902423446042",
+    "totalScore": 4.5,
+    "reviewsCount": 402,
+    "address": "Zafer, Mehmet Akif Cd. No:143, 07120 Kepez/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "24 saat açık"
+      ],
+      "Cumartesi": [
+        "24 saat açık"
+      ],
+      "Pazar": [
+        "24 saat açık"
+      ],
+      "Pazartesi": [
+        "24 saat açık"
+      ],
+      "Perşembe": [
+        "24 saat açık"
+      ],
+      "Salı": [
+        "24 saat açık"
+      ],
+      "Çarşamba": [
+        "24 saat açık"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Dervi%C5%9Fo%C4%9Flu+Pastanesi&query_place_id=ChIJiV4nK4iPwxQR2yEMP2tyaCo",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "Pastabella_Antalya",
+    "categoryName": "Pastane",
+    "phone": "+905454771259",
+    "totalScore": 5,
+    "reviewsCount": 35,
+    "address": "Düdenbaşı mah. 2305 sok/16 Şerife apartmanıKat:3 No:1Antalya, 07320 Kepez/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "06:00–22:00"
+      ],
+      "Cumartesi": [
+        "06:00–22:00"
+      ],
+      "Pazar": [
+        "06:00–22:00"
+      ],
+      "Pazartesi": [
+        "06:00–22:00"
+      ],
+      "Perşembe": [
+        "06:00–22:00"
+      ],
+      "Salı": [
+        "06:00–22:00"
+      ],
+      "Çarşamba": [
+        "06:00–22:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Pastabella_Antalya&query_place_id=ChIJ62W1ytSFwxQRkYtsZ1ZKGeI",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "Tatlı tanem Antalya Butik pasta",
+    "categoryName": "Pastane",
+    "phone": "+905063894743",
+    "totalScore": 5,
+    "reviewsCount": 112,
+    "address": "Meydankavağı, Avni Tolunay Cd., 07200 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "07:00–00:00"
+      ],
+      "Cumartesi": [
+        "07:00–23:00"
+      ],
+      "Pazar": [
+        "07:00–22:00"
+      ],
+      "Pazartesi": [
+        "07:00–22:00"
+      ],
+      "Perşembe": [
+        "07:00–00:00"
+      ],
+      "Salı": [
+        "07:00–00:00"
+      ],
+      "Çarşamba": [
+        "07:00–00:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Tatl%C4%B1+tanem+Antalya+Butik+pasta&query_place_id=ChIJJ543KwqbwxQRnh8hBS7Um9I",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "Samanyolu Pastanesi",
+    "categoryName": "Pastane",
+    "phone": "+905340808787",
+    "totalScore": 4.2,
+    "reviewsCount": 2243,
+    "address": "Altındağ, 100 Yıl Blv no:53, 07050 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "07:00–23:00"
+      ],
+      "Cumartesi": [
+        "07:00–23:00"
+      ],
+      "Pazar": [
+        "07:00–23:00"
+      ],
+      "Pazartesi": [
+        "07:00–23:00"
+      ],
+      "Perşembe": [
+        "07:00–23:00"
+      ],
+      "Salı": [
+        "07:00–23:00"
+      ],
+      "Çarşamba": [
+        "07:00–23:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Samanyolu+Pastanesi&query_place_id=ChIJaWkdoBiQwxQR0wNnVNiL_HM",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "NUR PASTANESİ SİGORTA PAKET SERVİS YAŞ PASTA DONDURMA ÇİKOLATA DOĞUM GÜNÜ PASTA MODELLERİ ANTALYA BAKLAVA SİPARİŞİ",
+    "categoryName": "Pastane",
+    "phone": "+905438164589",
+    "totalScore": 4.2,
+    "reviewsCount": 122,
+    "address": "Güvenlik, Güllük Cd. no.141, 07030 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "05:00–02:00"
+      ],
+      "Cumartesi": [
+        "05:00–02:00"
+      ],
+      "Pazar": [
+        "05:00–02:00"
+      ],
+      "Pazartesi": [
+        "05:00–02:00"
+      ],
+      "Perşembe": [
+        "05:00–02:00"
+      ],
+      "Salı": [
+        "05:00–02:00"
+      ],
+      "Çarşamba": [
+        "05:00–02:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=NUR+PASTANES%C4%B0+S%C4%B0GORTA+PAKET+SERV%C4%B0S+YA%C5%9E+PASTA+DONDURMA+%C3%87%C4%B0KOLATA+DO%C4%9EUM+G%C3%9CN%C3%9C+PASTA+MODELLER%C4%B0+ANTALYA+BAKLAVA+S%C4%B0PAR%C4%B0%C5%9E%C4%B0&query_place_id=ChIJbSnakeCPwxQRJ7mKw60Kk8g",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "Damla Pastanesi",
+    "categoryName": "Pastane",
+    "phone": "+902423119119",
+    "totalScore": 4.6,
+    "reviewsCount": 187,
+    "address": "Zerdalilik mahallesi Balıkçıoğlu caddesi no6:c, 07100 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "06:00–23:00"
+      ],
+      "Cumartesi": [
+        "06:00–23:00"
+      ],
+      "Pazar": [
+        "06:00–23:00"
+      ],
+      "Pazartesi": [
+        "06:00–23:00"
+      ],
+      "Perşembe": [
+        "06:00–23:00"
+      ],
+      "Salı": [
+        "06:00–23:00"
+      ],
+      "Çarşamba": [
+        "06:00–23:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane",
+      "Kek dükkanı"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Damla+Pastanesi&query_place_id=ChIJ_-AmV6mawxQRzt1rRkpU-Ns",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "Ege Chef Profiterol Antalya 100. Yıl Şube",
+    "categoryName": "Pastane",
+    "phone": "+905406680007",
+    "totalScore": 4.7,
+    "reviewsCount": 160,
+    "address": "IC KAPI, KIZILSARAY MAH. YENER ULUSOY BLV. S.GÖK APT NO: 27, NO: A, 07140 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "10:30–02:00"
+      ],
+      "Cumartesi": [
+        "10:30–02:00"
+      ],
+      "Pazar": [
+        "10:30–02:00"
+      ],
+      "Pazartesi": [
+        "10:30–02:00"
+      ],
+      "Perşembe": [
+        "10:30–02:00"
+      ],
+      "Salı": [
+        "10:30–02:00"
+      ],
+      "Çarşamba": [
+        "10:30–02:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=Ege+Chef+Profiterol+Antalya+100.+Y%C4%B1l+%C5%9Eube&query_place_id=ChIJBe_JAq6RwxQRskXCBIekXW4",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "ANTALYA PASTA",
+    "categoryName": "Pastane",
+    "phone": "+905444382055",
+    "totalScore": 4.2,
+    "reviewsCount": 23,
+    "address": "Konuksever, 820/1. Sk., 07010 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "09:00–20:00"
+      ],
+      "Cumartesi": [
+        "09:00–20:00"
+      ],
+      "Pazar": [
+        "09:00–20:00"
+      ],
+      "Pazartesi": [
+        "09:00–20:00"
+      ],
+      "Perşembe": [
+        "09:00–20:00"
+      ],
+      "Salı": [
+        "09:00–20:00"
+      ],
+      "Çarşamba": [
+        "09:00–20:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=ANTALYA+PASTA&query_place_id=ChIJ7-dQivSPwxQRPfWhLzs-D9o",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
+    "title": "VİSELYA CAFE PASTANE",
+    "categoryName": "Pastane",
+    "phone": "+905527500725",
+    "totalScore": 4.9,
+    "reviewsCount": 16,
+    "address": "Muratpaşa, Şarampol Cd 106/D, 07000 Muratpaşa/Antalya, Türkiye",
+    "openingHours": {
+      "Cuma": [
+        "07:00–00:00"
+      ],
+      "Cumartesi": [
+        "07:00–00:00"
+      ],
+      "Pazar": [
+        "07:00–00:00"
+      ],
+      "Pazartesi": [
+        "07:00–00:00"
+      ],
+      "Perşembe": [
+        "07:00–00:00"
+      ],
+      "Salı": [
+        "07:00–00:00"
+      ],
+      "Çarşamba": [
+        "07:00–00:00"
+      ]
+    },
+    "imageUrl": "",
+    "description": "",
+    "highlights": [
+      "Pastane"
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=V%C4%B0SELYA+CAFE+PASTANE&query_place_id=ChIJQ7pSVXKPwxQRLeC2P0dKO9I",
+    "source": "gosom/google-maps-scraper",
+    "query": "Antalya pastane"
+  },
+  {
     "title": "Co Co Cafe Bar",
     "categoryName": "Kafe",
     "phone": "(0242) 349 20 63",
