@@ -1,28 +1,37 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   CheckCircle2,
   ExternalLink,
+  Github,
   Loader2,
   Lock,
   Plus,
+  RefreshCw,
   RotateCcw,
   Search,
   Settings,
   Sparkles,
+  Upload,
 } from "lucide-react";
-import type { Lead, LeadStatus, PanelSettings, VenueDesignPreset } from "./types";
+import type {
+  Lead,
+  LeadStatus,
+  PanelSettings,
+  ScraperEngine,
+  VenueDesignPreset,
+} from "./types";
 import { VALID_STATUSES } from "./types";
 import {
   detectVenuePreset,
-  getInitialSeedLeads,
-  normalizeRawItemToLead,
-  parseCsvText,
-} from "./lib/apify";
+  normalizeScrapedRecord,
+  parseUploadedLeadFile,
+} from "./lib/leadParser";
 import {
-  fetchFromSerpApiPool,
-  runLeadProvider,
-  type LeadProvider,
-} from "./lib/providers";
+  dispatchGithubScraperWorkflow,
+  fetchLatestLiveLeads,
+  getLatestScraperRun,
+  GITHUB_ACTIONS_URL,
+} from "./lib/githubScraper";
 import {
   buildMessageForTemplate,
   isMobilePhone,
@@ -42,8 +51,9 @@ import { AddLeadModal } from "./components/AddLeadModal";
 import { ImageModal } from "./components/ImageModal";
 import { LeadCard } from "./components/LeadCard";
 
-const LEADS_STORAGE_KEY = "likya_panel_v2_leads";
-const SETTINGS_STORAGE_KEY = "likya_panel_v2_settings";
+// Fresh v3 key wipes any old fake demo records cleanly and starts with 100% real Antalya data
+const LEADS_STORAGE_KEY = "likya_crm_v3_real_leads";
+const SETTINGS_STORAGE_KEY = "likya_crm_v3_settings";
 const UNLOCK_STORAGE_KEY = "likya_panel_v2_unlocked";
 
 const ANTALYA_QUICK_QUERIES = [
@@ -53,8 +63,8 @@ const ANTALYA_QUICK_QUERIES = [
   "Antalya meyhane",
   "Antalya güzellik salonu",
   "Antalya pastane",
-  "Antalya tekne turu",
-  "Antalya diş kliniği",
+  "Alanya butik otel",
+  "Kaş restoran",
 ];
 
 interface ToastItem {
@@ -64,12 +74,10 @@ interface ToastItem {
 }
 
 function loadInitialSettings(): PanelSettings {
-  const envToken = (import.meta.env.VITE_APIFY_API_TOKEN as string | undefined) || "";
-  const envOutscraper = (import.meta.env.VITE_OUTSCRAPER_API_KEY as string | undefined) || "";
+  const envGithubToken = (import.meta.env.VITE_GITHUB_TOKEN as string | undefined) || "";
   const envPin = (import.meta.env.VITE_PANEL_PIN as string | undefined) || "2026";
   const defaults: PanelSettings = {
-    apifyToken: envToken,
-    outscraperKey: envOutscraper,
+    githubToken: envGithubToken,
     siteUrl: "https://likyastudios.live/isletmeler",
     senderName: "Açelya",
     senderPhone: "+90 545 776 05 57",
@@ -86,30 +94,29 @@ function loadInitialSettings(): PanelSettings {
       ...parsed,
       senderPhone: parsed.senderPhone || "+90 545 776 05 57",
       defaultPreset: parsed.defaultPreset || "auto",
-      apifyToken: parsed.apifyToken || envToken,
-      outscraperKey: parsed.outscraperKey || envOutscraper,
+      githubToken: parsed.githubToken || envGithubToken,
     };
   } catch {
     return defaults;
   }
 }
 
-function loadInitialLeads(settings: PanelSettings): Lead[] {
+function loadInitialLeads(): Lead[] {
   try {
     const raw = localStorage.getItem(LEADS_STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      if (Array.isArray(parsed)) return parsed;
     }
   } catch {
-    // fallback to seed
+    // start empty and auto-sync real leads from GitHub immediately
   }
-  return getInitialSeedLeads(settings.siteUrl, settings.senderName);
+  return [];
 }
 
 export default function App() {
   const [settings, setSettings] = useState<PanelSettings>(loadInitialSettings);
-  const [leads, setLeads] = useState<Lead[]>(() => loadInitialLeads(loadInitialSettings()));
+  const [leads, setLeads] = useState<Lead[]>(loadInitialLeads);
   const [unlocked, setUnlocked] = useState<boolean>(() => {
     const s = loadInitialSettings();
     if (!s.pinEnabled) return true;
@@ -119,14 +126,15 @@ export default function App() {
     );
   });
 
-  // Multi-source fetch controls — All Antalya by default
-  const [provider, setProvider] = useState<LeadProvider>("osm");
-  const [apifyQuery, setApifyQuery] = useState("Antalya kafe");
-  const [apifyLimit, setApifyLimit] = useState(15);
-  const [noWebsiteOnly, setNoWebsiteOnly] = useState(true);
-  const [phoneOnly, setPhoneOnly] = useState(true);
-  const [isFetchingApify, setIsFetchingApify] = useState(false);
-  const [fetchStatusMsg, setFetchStatusMsg] = useState("");
+  // GitHub Open-Source Scraper controls
+  const [engine, setEngine] = useState<ScraperEngine>("gosom");
+  const [query, setQuery] = useState("Antalya kafe");
+  const [depth, setDepth] = useState(2);
+  const [isScraping, setIsScraping] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [scrapeStatusMsg, setScrapeStatusMsg] = useState("");
+  const [lastRunUrl, setLastRunUrl] = useState("");
+  const quickUploadRef = useRef<HTMLInputElement>(null);
 
   // Filters
   const [search, setSearch] = useState("");
@@ -145,7 +153,6 @@ export default function App() {
     dataUrl: string;
   } | null>(null);
 
-  // Toasts
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
   useEffect(() => {
@@ -164,26 +171,9 @@ export default function App() {
     }
   }, [settings]);
 
-  // Auto-load real SerpAPI Antalya pool (public/antalya-live-leads.json) once so real leads appear immediately
+  // Always sync latest REAL Antalya leads from GitHub main branch on startup
   useEffect(() => {
-    const syncKey = "likya_panel_v2_serpapi_synced_v1";
-    if (localStorage.getItem(syncKey)) return;
-    fetchFromSerpApiPool({
-      query: "",
-      noWebsiteOnly: true,
-      phoneOnly: true,
-      siteUrl: settings.siteUrl,
-      senderName: settings.senderName,
-    })
-      .then((res) => {
-        if (res.leads.length > 0) {
-          mergeIncomingLeads(res.leads);
-          localStorage.setItem(syncKey, "1");
-        }
-      })
-      .catch(() => {
-        // ignore if pool json absent
-      });
+    syncLiveLeadsFromGithub(true);
   }, []);
 
   function notify(message: string, tone: "default" | "success" | "error" = "default") {
@@ -191,7 +181,7 @@ export default function App() {
     setToasts((prev) => [...prev, { id, message, tone }]);
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 3200);
+    }, 3500);
   }
 
   function mergeIncomingLeads(incoming: Lead[]): { added: number; updated: number } {
@@ -223,6 +213,7 @@ export default function App() {
                 ? next[idx].highlights
                 : item.highlights,
             google_maps_url: next[idx].google_maps_url || item.google_maps_url,
+            source: next[idx].source || item.source,
             updated_at: new Date().toISOString(),
           };
           updated++;
@@ -237,49 +228,105 @@ export default function App() {
     return { added, updated };
   }
 
-  async function handleApifyFetch(overrideQuery?: string) {
-    const targetQuery = (overrideQuery ?? apifyQuery).trim();
-    if (!targetQuery && provider !== "serpapi_pool") {
+  async function syncLiveLeadsFromGithub(silent = false) {
+    setIsSyncing(true);
+    try {
+      const freshLeads = await fetchLatestLiveLeads({
+        siteUrl: settings.siteUrl,
+        senderName: settings.senderName,
+        senderPhone: settings.senderPhone,
+      });
+      const { added } = mergeIncomingLeads(freshLeads);
+      if (!silent) {
+        notify(
+          added > 0
+            ? `GitHub'dan ${added} yeni gerçek Antalya işletmesi eklendi!`
+            : `Liste güncel (${freshLeads.length} gerçek işletme senkronize)`,
+          "success"
+        );
+      }
+    } catch (err) {
+      if (!silent) {
+        notify(
+          `Liste yenilenemedi: ${err instanceof Error ? err.message : "Ağ hatası"}`,
+          "error"
+        );
+      }
+    } finally {
+      setIsSyncing(false);
+    }
+  }
+
+  async function handleRunGithubScraper() {
+    const cleanQuery = query.trim();
+    if (!cleanQuery) {
       notify("Lütfen arama kelimesi girin (örn: Antalya kafe)", "error");
       return;
     }
 
-    const providerLabels: Record<LeadProvider, string> = {
-      osm: "OpenStreetMap (Ücretsiz)",
-      serpapi_pool: "SerpAPI Antalya Havuzu",
-      outscraper: "Outscraper (Google Maps)",
-      apify: "Apify (Google Maps)",
-    };
+    // If no GitHub token saved yet, copy query and open GitHub Actions Run Workflow page directly
+    if (!settings.githubToken.trim()) {
+      try {
+        await navigator.clipboard.writeText(cleanQuery);
+      } catch {
+        // ignore clipboard errors
+      }
+      window.open(GITHUB_ACTIONS_URL, "_blank", "noopener,noreferrer");
+      setScrapeStatusMsg(
+        `GitHub Actions sayfası açıldı ("${cleanQuery}" panoya kopyalandı). "Run workflow" ile başlatın, bitince "Listeyi Yenile"ye basın — veya Ayarlar'a GitHub Token girerek buradan tek tıkla çalıştırın.`
+      );
+      notify("GitHub Actions açıldı! Run workflow ile ücretsiz taramayı başlatın.", "default");
+      return;
+    }
 
-    setIsFetchingApify(true);
-    setFetchStatusMsg(
-      `${providerLabels[provider]} ile tüm Antalya taranıyor: "${targetQuery || "Tümü"}"...`
-    );
+    setIsScraping(true);
+    const engineLabel = engine === "gosom" ? "gosom/google-maps-scraper (Ücretsiz)" : "SerpAPI";
+    setScrapeStatusMsg(`${engineLabel} GitHub Actions üzerinde başlatılıyor: "${cleanQuery}"...`);
 
     try {
-      const res = await runLeadProvider({
-        provider,
-        query: targetQuery,
-        limit: apifyLimit,
-        noWebsiteOnly,
-        phoneOnly,
-        siteUrl: settings.siteUrl,
-        senderName: settings.senderName,
-        apifyToken: settings.apifyToken,
-        outscraperKey: settings.outscraperKey,
+      const beforeRun = await getLatestScraperRun(settings.githubToken);
+      const beforeId = beforeRun?.id ?? 0;
+
+      await dispatchGithubScraperWorkflow({
+        githubToken: settings.githubToken,
+        engine,
+        query: cleanQuery,
+        depth,
       });
 
-      const { added, updated } = mergeIncomingLeads(res.leads);
-      const summary = `${providerLabels[provider]}: ${res.fetched} kayıt incelendi → ${added} yeni eklendi, ${updated} güncellendi (${res.skippedWithSite} siteli, ${res.skippedNoPhone} telefonsuz elendi).`;
-      setFetchStatusMsg(summary);
-      notify(summary, "success");
+      setScrapeStatusMsg(`${engineLabel} çalışıyor... GitHub sunucusunda "${cleanQuery}" taranıyor.`);
+
+      // Poll up to 4 minutes for GitHub Actions run to complete
+      let runUrl = GITHUB_ACTIONS_URL;
+      for (let attempt = 0; attempt < 48; attempt++) {
+        await new Promise((r) => setTimeout(r, 5000));
+        const latest = await getLatestScraperRun(settings.githubToken);
+        if (!latest || latest.id === beforeId) continue;
+        runUrl = latest.html_url;
+        setLastRunUrl(runUrl);
+
+        if (latest.status === "completed") {
+          if (latest.conclusion === "success") {
+            await syncLiveLeadsFromGithub(false);
+            setScrapeStatusMsg(`Tamamlandı! "${cleanQuery}" sonuçları panele eklendi.`);
+          } else {
+            setScrapeStatusMsg(`Tarama tamamlandı (${latest.conclusion}). Loglara GitHub'dan bakın.`);
+            notify(`GitHub Actions sonucu: ${latest.conclusion}`, "error");
+          }
+          setIsScraping(false);
+          return;
+        }
+        setScrapeStatusMsg(
+          `${engineLabel} çalışıyor (${latest.status === "queued" ? "sırada" : "taranıyor"})...`
+        );
+      }
+      setScrapeStatusMsg("Tarama arka planda devam ediyor; bitince 'Listeyi Yenile' butonuna basın.");
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Tarama sırasında hata oluştu";
-      setFetchStatusMsg(`Hata: ${msg}`);
+      const msg = err instanceof Error ? err.message : "GitHub Actions hatası";
+      setScrapeStatusMsg(`Hata: ${msg}`);
       notify(msg, "error");
-      if (msg.includes("Ayarlar")) setSettingsOpen(true);
     } finally {
-      setIsFetchingApify(false);
+      setIsScraping(false);
     }
   }
 
@@ -318,6 +365,7 @@ export default function App() {
       address: payload.address,
       opening_hours: payload.opening_hours,
       design_preset: detectVenuePreset(payload.category, payload.business_name),
+      source: "Manuel",
       custom_message: "",
       status: "Görsel Hazır",
       notes: "",
@@ -328,7 +376,8 @@ export default function App() {
       newLead,
       "first_touch",
       settings.siteUrl,
-      settings.senderName
+      settings.senderName,
+      settings.senderPhone
     );
     mergeIncomingLeads([newLead]);
     notify(`${newLead.business_name} eklendi ve mekana özel görselleri hazırlandı`, "success");
@@ -337,31 +386,34 @@ export default function App() {
   async function handleImportFile(file: File) {
     try {
       const text = await file.text();
-      let rawRows: Record<string, unknown>[] = [];
-      if (file.name.toLowerCase().endsWith(".json")) {
-        const parsed = JSON.parse(text);
-        rawRows = Array.isArray(parsed)
-          ? parsed
-          : Array.isArray(parsed?.items)
-          ? parsed.items
-          : [];
-      } else {
-        rawRows = parseCsvText(text);
-      }
+      const rawRows = parseUploadedLeadFile(file.name, text);
 
       const incoming: Lead[] = [];
+      let skippedWithSite = 0;
+      let skippedNoPhone = 0;
+
       for (const r of rawRows) {
-        const { lead, hasWebsite, hasPhone } = normalizeRawItemToLead(r, {
+        const { lead, hasWebsite, hasPhone } = normalizeScrapedRecord(r, {
           siteUrl: settings.siteUrl,
           senderName: settings.senderName,
+          senderPhone: settings.senderPhone,
         });
         if (!lead) continue;
-        if (noWebsiteOnly && hasWebsite) continue;
-        if (phoneOnly && !hasPhone) continue;
+        if (hasWebsite) {
+          skippedWithSite++;
+          continue;
+        }
+        if (!hasPhone) {
+          skippedNoPhone++;
+          continue;
+        }
         incoming.push(lead);
       }
       const { added, updated } = mergeIncomingLeads(incoming);
-      notify(`Dosyadan aktarıldı: ${added} yeni, ${updated} güncellendi`, "success");
+      notify(
+        `${file.name}: ${added} yeni, ${updated} güncellendi (${skippedWithSite} siteli, ${skippedNoPhone} telefonsuz elendi)`,
+        "success"
+      );
     } catch (err) {
       notify(
         `Dosya okunamadı: ${err instanceof Error ? err.message : "Geçersiz format"}`,
@@ -373,7 +425,7 @@ export default function App() {
   function handleExportBackup() {
     const blob = new Blob([JSON.stringify(leads, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    downloadDataUrl(url, `likya_panel_v2_yedek_${new Date().toISOString().slice(0, 10)}.json`);
+    downloadDataUrl(url, `likya_crm_yedek_${new Date().toISOString().slice(0, 10)}.json`);
     URL.revokeObjectURL(url);
     notify("Tüm kayıtlar JSON yedeği olarak indirildi", "success");
   }
@@ -483,12 +535,12 @@ export default function App() {
                 <h1 className="font-display text-base sm:text-lg font-bold text-[#F4F0E6] leading-tight">
                   LIKYA STUDIOS
                 </h1>
-                <span className="font-mono-num text-[11px] px-2 py-0.5 rounded-md bg-[#D4A853]/12 border border-[#D4A853]/30 text-[#E5BE6F]">
-                  PANEL V2
+                <span className="font-mono-num text-[11px] px-2 py-0.5 rounded-md bg-emerald-500/12 border border-emerald-500/30 text-emerald-300">
+                  GITHUB SCRAPER CRM
                 </span>
               </div>
               <p className="text-xs text-zinc-400">
-                Tüm Antalya B2B Satış · Mekana Özel Görsel Üretici · Tek Tıkla WhatsApp
+                gosom/google-maps-scraper + SerpAPI · Mekana Özel Görsel · 0545 776 05 57 WhatsApp
               </p>
             </div>
           </div>
@@ -506,11 +558,21 @@ export default function App() {
 
             <button
               type="button"
+              disabled={isSyncing}
+              onClick={() => syncLiveLeadsFromGithub(false)}
+              className="text-xs px-3 py-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/15 text-emerald-300 inline-flex items-center gap-1.5 transition"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin" : ""}`} />
+              <span>Listeyi Yenile</span>
+            </button>
+
+            <button
+              type="button"
               onClick={() => setSettingsOpen(true)}
               className="text-xs px-3 py-1.5 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 text-zinc-200 inline-flex items-center gap-1.5 transition"
             >
               <Settings className="w-3.5 h-3.5 text-[#D4A853]" />
-              <span>Ayarlar &amp; API</span>
+              <span>Ayarlar</span>
             </button>
 
             <button
@@ -546,9 +608,9 @@ export default function App() {
           <div className="surface-card rounded-xl p-4">
             <div className="flex items-center justify-between text-xs">
               <span className="uppercase tracking-wider text-zinc-400 font-medium">
-                Toplam İşletme
+                Gerçek İşletme
               </span>
-              <span className="font-mono-num text-zinc-500">{kpis.mobileCount} cep tel</span>
+              <span className="font-mono-num text-emerald-400">{kpis.mobileCount} cep tel</span>
             </div>
             <p className="mt-2 font-mono-num text-2xl sm:text-3xl font-bold text-white">
               {kpis.total}
@@ -592,107 +654,114 @@ export default function App() {
           </div>
         </section>
 
-        {/* 2. Multi-Source All-Antalya Lead Fetch Bar */}
-        <section aria-label="Çok Kaynaklı İşletme Çekme" className="surface-card rounded-2xl p-4 sm:p-5 space-y-3.5">
+        {/* 2. GitHub Open-Source Scraper Bar (gosom + SerpAPI + Local CSV/JSONL Import) */}
+        <section
+          aria-label="GitHub Açık Kaynak Scraper"
+          className="surface-card rounded-2xl p-4 sm:p-5 space-y-3.5"
+        >
           <div className="flex flex-col lg:flex-row lg:items-end gap-3.5">
-            <div className="w-full lg:w-64">
+            <div className="w-full lg:w-72">
               <label
-                htmlFor="providerSelect"
+                htmlFor="engineSelect"
                 className="block text-[11px] font-mono-num uppercase tracking-wider text-zinc-400 mb-1.5"
               >
-                Veri Kaynağı
+                GitHub Açık Kaynak Motoru
               </label>
               <select
-                id="providerSelect"
-                value={provider}
-                onChange={(e) => setProvider(e.target.value as LeadProvider)}
+                id="engineSelect"
+                value={engine}
+                onChange={(e) => setEngine(e.target.value as ScraperEngine)}
                 className="input-dark w-full rounded-xl px-3 py-2.5 text-sm text-[#E5BE6F]"
               >
-                <option value="osm">OpenStreetMap (100% Ücretsiz · Anahtarsız)</option>
-                <option value="serpapi_pool">SerpAPI Antalya Havuzu (Gerçek · Hazır)</option>
-                <option value="outscraper">Outscraper (500 Ücretsiz/Ay · Google Maps)</option>
-                <option value="apify">Apify (Google Maps)</option>
+                <option value="gosom">gosom/google-maps-scraper (%100 Ücretsiz)</option>
+                <option value="serpapi">SerpAPI Google Maps (Hızlı · 250 Ücretsiz/Ay)</option>
               </select>
             </div>
 
             <div className="flex-1">
               <label
-                htmlFor="apifyQueryInput"
+                htmlFor="scraperQueryInput"
                 className="block text-[11px] font-mono-num uppercase tracking-wider text-zinc-400 mb-1.5"
               >
-                Tüm Antalya Arama Kelimesi
+                Tüm Antalya Arama Kelimesi (Sitesi Olmayan &amp; Telefonlu)
               </label>
               <input
-                id="apifyQueryInput"
+                id="scraperQueryInput"
                 type="text"
-                value={apifyQuery}
-                onChange={(e) => setApifyQuery(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && !isFetchingApify && handleApifyFetch()}
-                placeholder="Örn: Antalya kafe, Antalya restoran, Antalya butik otel, Alanya kuaför, Kaş pansiyon..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && !isScraping && handleRunGithubScraper()}
+                placeholder="Örn: Antalya kafe, Antalya restoran, Alanya butik otel, Kaş pansiyon..."
                 className="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm"
               />
             </div>
 
-            <div className="w-full sm:w-32">
+            <div className="w-full sm:w-28">
               <label
-                htmlFor="apifyLimitSelect"
+                htmlFor="depthSelect"
                 className="block text-[11px] font-mono-num uppercase tracking-wider text-zinc-400 mb-1.5"
               >
-                Limit
+                Derinlik
               </label>
               <select
-                id="apifyLimitSelect"
-                value={apifyLimit}
-                onChange={(e) => setApifyLimit(Number(e.target.value))}
+                id="depthSelect"
+                value={depth}
+                onChange={(e) => setDepth(Number(e.target.value))}
                 className="input-dark w-full rounded-xl px-3 py-2.5 text-sm"
               >
-                <option value={10}>10 işletme</option>
-                <option value={15}>15 işletme</option>
-                <option value={25}>25 işletme</option>
-                <option value={40}>40 işletme</option>
+                <option value={1}>Hızlı (1)</option>
+                <option value={2}>Orta (2)</option>
+                <option value={3}>Derin (3)</option>
               </select>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 pb-2.5 text-xs sm:text-sm text-zinc-300">
-              <label className="inline-flex items-center gap-2 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={noWebsiteOnly}
-                  onChange={(e) => setNoWebsiteOnly(e.target.checked)}
-                  className="w-4 h-4 accent-[#D4A853]"
-                />
-                <span>Sitesi olmayanlar</span>
-              </label>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                disabled={isScraping}
+                onClick={handleRunGithubScraper}
+                className="btn-gold rounded-xl px-4 py-2.5 text-sm inline-flex items-center justify-center gap-2 whitespace-nowrap"
+              >
+                {isScraping ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>GitHub Taranıyor...</span>
+                  </>
+                ) : (
+                  <>
+                    {settings.githubToken ? (
+                      <Sparkles className="w-4 h-4" />
+                    ) : (
+                      <Github className="w-4 h-4" />
+                    )}
+                    <span>
+                      {settings.githubToken ? "Canlı Tarama Başlat" : "GitHub'da Başlat ↗"}
+                    </span>
+                  </>
+                )}
+              </button>
 
-              <label className="inline-flex items-center gap-2 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={phoneOnly}
-                  onChange={(e) => setPhoneOnly(e.target.checked)}
-                  className="w-4 h-4 accent-emerald-500"
-                />
-                <span>Telefonu olanlar</span>
-              </label>
+              <button
+                type="button"
+                onClick={() => quickUploadRef.current?.click()}
+                title="gosom, Mahanaicoach veya omkarcloud CSV/JSONL dosyasını yükle"
+                className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-200 inline-flex items-center gap-1.5 whitespace-nowrap transition"
+              >
+                <Upload className="w-4 h-4 text-[#D4A853]" />
+                <span>CSV / JSONL</span>
+              </button>
+              <input
+                ref={quickUploadRef}
+                type="file"
+                accept=".csv,.json,.jsonl"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) handleImportFile(f);
+                  e.target.value = "";
+                }}
+              />
             </div>
-
-            <button
-              type="button"
-              disabled={isFetchingApify}
-              onClick={() => handleApifyFetch()}
-              className="btn-gold rounded-xl px-5 py-2.5 text-sm inline-flex items-center justify-center gap-2 whitespace-nowrap"
-            >
-              {isFetchingApify ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Taranıyor...</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-4 h-4" />
-                  <span>İşletme Çek</span>
-                </>
-              )}
-            </button>
           </div>
 
           {/* 1-Click All-Antalya Quick Sector Chips */}
@@ -702,10 +771,10 @@ export default function App() {
               <button
                 key={q}
                 type="button"
-                disabled={isFetchingApify}
-                onClick={() => setApifyQuery(q)}
+                disabled={isScraping}
+                onClick={() => setQuery(q)}
                 className={`text-[11px] px-2.5 py-1 rounded-full border transition ${
-                  apifyQuery === q
+                  query === q
                     ? "border-[#D4A853]/60 bg-[#D4A853]/15 text-[#E5BE6F]"
                     : "border-white/10 bg-white/[0.03] text-zinc-400 hover:text-white hover:border-white/20"
                 }`}
@@ -715,23 +784,35 @@ export default function App() {
             ))}
           </div>
 
-          {fetchStatusMsg && (
-            <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-3 text-xs sm:text-sm">
+          {scrapeStatusMsg && (
+            <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
               <div className="flex items-center gap-2 text-zinc-200">
-                {isFetchingApify ? (
+                {isScraping ? (
                   <Loader2 className="w-4 h-4 animate-spin text-[#D4A853] shrink-0" />
                 ) : (
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 )}
-                <span>{fetchStatusMsg}</span>
+                <span>{scrapeStatusMsg}</span>
               </div>
-              <button
-                type="button"
-                onClick={() => setFetchStatusMsg("")}
-                className="text-xs text-zinc-500 hover:text-zinc-300"
-              >
-                Gizle
-              </button>
+              <div className="flex items-center gap-3">
+                {lastRunUrl && (
+                  <a
+                    href={lastRunUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#D4A853] hover:underline inline-flex items-center gap-1"
+                  >
+                    <span>Canlı Log ↗</span>
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setScrapeStatusMsg("")}
+                  className="text-xs text-zinc-500 hover:text-zinc-300"
+                >
+                  Gizle
+                </button>
+              </div>
             </div>
           )}
         </section>
@@ -826,12 +907,11 @@ export default function App() {
           <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-500">
             <span>
               <strong className="text-zinc-300 font-mono-num">{filteredLeads.length}</strong>{" "}
-              işletme listeleniyor
+              gerçek işletme listeleniyor
             </span>
             <span>
-              Her işletmeye kendi fotoğrafı + sektör stiliyle tasarım üretilir ·{" "}
-              <strong className="text-[#E5BE6F]">Mockup Kopyala</strong> →{" "}
-              <strong className="text-emerald-400">WhatsApp ile Gönder</strong>
+              Hızlı Akış: <strong className="text-[#E5BE6F]">Mockup Kopyala</strong> →{" "}
+              <strong className="text-emerald-400">WhatsApp ile Gönder</strong> (0545 776 05 57)
             </span>
           </div>
         </section>
@@ -839,11 +919,22 @@ export default function App() {
         {/* 4. Leads List */}
         <section aria-label="İşletme Kartları" className="space-y-4">
           {filteredLeads.length === 0 ? (
-            <div className="surface-card rounded-2xl p-12 text-center">
-              <p className="text-zinc-300 font-medium">Filtrelere uyan işletme bulunamadı.</p>
-              <p className="text-xs text-zinc-500 mt-1">
-                Yukarıdan Tüm Antalya için Apify taraması başlatabilir veya filtreleri sıfırlayabilirsiniz.
+            <div className="surface-card rounded-2xl p-12 text-center space-y-3">
+              <p className="text-zinc-300 font-medium">
+                {isSyncing
+                  ? "GitHub'dan gerçek Antalya işletmeleri yükleniyor..."
+                  : "Filtrelere uyan işletme bulunamadı."}
               </p>
+              {!isSyncing && (
+                <button
+                  type="button"
+                  onClick={() => syncLiveLeadsFromGithub(false)}
+                  className="btn-gold px-4 py-2 rounded-lg text-xs inline-flex items-center gap-1.5"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>Gerçek Antalya Listesini Yükle</span>
+                </button>
+              )}
             </div>
           ) : (
             filteredLeads.map((lead) => (

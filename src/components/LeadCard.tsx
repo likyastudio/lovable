@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import type { Lead, LeadStatus, MessageTemplateKey, VenueDesignPreset } from "../types";
 import { VALID_STATUSES, VENUE_DESIGN_OPTIONS } from "../types";
-import { detectVenuePreset } from "../lib/apify";
+import { detectVenuePreset } from "../lib/leadParser";
 import {
   buildMessageForTemplate,
   formatDisplayPhone,
