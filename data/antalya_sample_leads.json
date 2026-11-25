@@ -1,0 +1,90 @@
+[
+  {
+    "title": "Surlariçi Meze & Meyhane",
+    "categoryName": "Meyhane",
+    "district": "Kaleiçi",
+    "phone": "+90 532 418 72 90",
+    "totalScore": 4.9,
+    "reviewsCount": 708,
+    "address": "Hesapçı Sk. No:24, Selçuk Mah., Kaleiçi, Antalya",
+    "openingHours": "Her gün 16:00 – 01:00",
+    "website": ""
+  },
+  {
+    "title": "Begonvil Avlu Butik Otel",
+    "categoryName": "Butik Otel",
+    "district": "Kaleiçi",
+    "phone": "0 (533) 612 45 18",
+    "totalScore": 4.8,
+    "reviewsCount": 412,
+    "address": "Kılınçarslan Mah., Hıdırlık Sk. No:11, Kaleiçi, Antalya",
+    "openingHours": "7/24 Resepsiyon",
+    "website": "https://instagram.com/begonvilavlu"
+  },
+  {
+    "title": "Falez Roastery & Bakehouse",
+    "categoryName": "Kafe",
+    "district": "Konyaaltı",
+    "phone": "+90 542 891 33 04",
+    "totalScore": 4.7,
+    "reviewsCount": 534,
+    "address": "Gürsu Mah., Atatürk Blv. No:142, Konyaaltı, Antalya",
+    "openingHours": "Her gün 08:00 – 23:30",
+    "website": ""
+  },
+  {
+    "title": "Portakal Çiçeği Pastanesi",
+    "categoryName": "Pastane",
+    "district": "Lara",
+    "phone": "0553 274 88 19",
+    "totalScore": 4.8,
+    "reviewsCount": 289,
+    "address": "Şirinyalı Mah., İsmet Gökşen Cd. No:58, Lara, Antalya",
+    "openingHours": "Her gün 07:30 – 22:30",
+    "website": ""
+  },
+  {
+    "title": "Mavi İskele Balık Evi",
+    "categoryName": "Meyhane",
+    "district": "Konyaaltı",
+    "phone": "+90 242 229 44 10",
+    "totalScore": 4.6,
+    "reviewsCount": 615,
+    "address": "Liman Mah., Akdeniz Blv. No:86, Konyaaltı, Antalya",
+    "openingHours": "Her gün 12:00 – 00:30",
+    "website": ""
+  },
+  {
+    "title": "Aura Estetik & Güzellik",
+    "categoryName": "Güzellik Salonu",
+    "district": "Lara",
+    "phone": "+90 544 705 19 62",
+    "totalScore": 4.9,
+    "reviewsCount": 194,
+    "address": "Fener Mah., Tekelioğlu Cd. No:31, Lara, Antalya",
+    "openingHours": "Pzt–Cmt 09:30 – 20:00",
+    "website": "https://instagram.com/auraestetiklara"
+  },
+  {
+    "title": "Likya Taş Evleri",
+    "categoryName": "Butik Otel",
+    "district": "Kaş",
+    "phone": "+90 535 920 61 47",
+    "totalScore": 4.9,
+    "reviewsCount": 326,
+    "address": "Andifli Mah., Uzun Çarşı Cd. No:19, Kaş, Antalya",
+    "openingHours": "7/24 Resepsiyon",
+    "website": ""
+  },
+  {
+    "title": "Sarnıç Coffee & Vinyl",
+    "categoryName": "Kafe",
+    "district": "Kaleiçi",
+    "phone": "+90 555 314 09 82",
+    "totalScore": 4.8,
+    "reviewsCount": 461,
+    "address": "Barbaros Mah., Civelek Sk. No:8, Kaleiçi, Antalya",
+    "openingHours": "Her gün 09:00 – 00:00",
+    "website": ""
+  }
+]
