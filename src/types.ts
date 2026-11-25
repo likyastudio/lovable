@@ -75,6 +75,8 @@ export const VENUE_DESIGN_OPTIONS: {
   },
 ];
 
+export type ScraperEngine = "gosom" | "serpapi";
+
 export type MessageTemplateKey = "first_touch" | "short_direct" | "follow_up";
 
 export interface Lead {
@@ -87,17 +89,13 @@ export interface Lead {
   reviews_count: number;
   address: string;
   opening_hours: string;
-  /** Venue photo URL from Google Maps / Apify OR uploaded data URL */
   image_url?: string;
-  /** Real venue description / tagline from Google Maps or custom */
   description?: string;
-  /** Real venue highlights / menu tags (e.g. ["Meze", "Deniz Manzarası", "Canlı Müzik"]) */
   highlights?: string[];
-  /** Selected design style matched to venue ambiance */
   design_preset?: Exclude<VenueDesignPreset, "auto">;
-  /** Optional custom or auto-extracted brand accent hex (e.g. "#D98A4E") */
   accent_color?: string;
   google_maps_url?: string;
+  source?: string;
   custom_message: string;
   status: LeadStatus;
   notes: string;
@@ -106,8 +104,7 @@ export interface Lead {
 }
 
 export interface PanelSettings {
-  apifyToken: string;
-  outscraperKey: string;
+  githubToken: string;
   siteUrl: string;
   senderName: string;
   senderPhone: string;

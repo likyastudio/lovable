@@ -1,6 +1,6 @@
 import QRCode from "qrcode";
 import type { Lead, VenueDesignPreset } from "../types";
-import { detectVenuePreset } from "./apify";
+import { detectVenuePreset } from "./leadParser";
 import { toAsciiLower } from "./phone";
 
 interface MenuItem {

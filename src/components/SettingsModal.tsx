@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Download, KeyRound, ShieldCheck, Upload, X } from "lucide-react";
+import { Download, Github, ShieldCheck, Upload, X } from "lucide-react";
 import type { PanelSettings, VenueDesignPreset } from "../types";
 import { VENUE_DESIGN_OPTIONS } from "../types";
 
@@ -44,9 +44,9 @@ export function SettingsModal({
       >
         <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <KeyRound className="w-4 h-4 text-[#D4A853]" />
+            <Github className="w-4 h-4 text-[#D4A853]" />
             <h2 className="font-display text-base font-semibold text-white">
-              Panel Ayarları &amp; Apify Bağlantısı
+              Panel Ayarları &amp; GitHub Scraper Bağlantısı
             </h2>
           </div>
           <button
@@ -61,30 +61,18 @@ export function SettingsModal({
         <form onSubmit={handleSubmit} className="p-5 space-y-4 overflow-y-auto">
           <div>
             <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-              Outscraper API Key (Ayda 500 işletme ÜCRETSİZ · Doğrudan tarayıcıdan çalışır)
+              GitHub Token (Opsiyonel — Panelden tek tıkla gosom/SerpAPI taraması başlatır)
             </label>
             <input
               type="password"
-              value={draft.outscraperKey}
-              onChange={(e) => setDraft({ ...draft, outscraperKey: e.target.value })}
-              placeholder="app.outscraper.com/profile → API Key"
-              className="input-dark w-full rounded-lg px-3.5 py-2.5 text-sm font-mono-num"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium text-zinc-300 mb-1.5">
-              Apify API Token (Opsiyonel · Tarayıcınızda güvenle saklanır)
-            </label>
-            <input
-              type="password"
-              value={draft.apifyToken}
-              onChange={(e) => setDraft({ ...draft, apifyToken: e.target.value })}
-              placeholder="apify_api_..."
+              value={draft.githubToken}
+              onChange={(e) => setDraft({ ...draft, githubToken: e.target.value })}
+              placeholder="github_pat_... (Actions: Read & Write)"
               className="input-dark w-full rounded-lg px-3.5 py-2.5 text-sm font-mono-num"
             />
             <p className="mt-1 text-[11px] text-zinc-500">
-              Anahtarlar yalnızca bu cihazda saklanır. OpenStreetMap ve SerpAPI Havuzu anahtarsız çalışır.
+              Token girmeden de &quot;GitHub&apos;da Çalıştır&quot; butonuyla tarama başlatıp
+              &quot;Listeyi Yenile&quot; diyerek tüm gerçek işletmeleri çekebilirsiniz.
             </p>
           </div>
 
@@ -175,7 +163,7 @@ export function SettingsModal({
 
           <div className="pt-3 border-t border-white/10">
             <p className="text-xs font-medium text-zinc-300 mb-2">
-              Veri Yedeği &amp; Apify JSON/CSV İçe Aktar
+              GitHub Scraper Dosyası Yükle (gosom / Mahanaicoach / omkarcloud)
             </p>
             <div className="grid grid-cols-2 gap-2.5">
               <button
@@ -184,7 +172,7 @@ export function SettingsModal({
                 className="px-3 py-2.5 rounded-lg text-xs bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-200 inline-flex items-center justify-center gap-1.5 transition"
               >
                 <Upload className="w-3.5 h-3.5" />
-                <span>JSON / CSV Yükle</span>
+                <span>CSV / JSONL / JSON</span>
               </button>
               <button
                 type="button"
@@ -198,7 +186,7 @@ export function SettingsModal({
             <input
               ref={fileRef}
               type="file"
-              accept=".json,.csv"
+              accept=".json,.jsonl,.csv"
               className="hidden"
               onChange={(e) => {
                 const file = e.target.files?.[0];
