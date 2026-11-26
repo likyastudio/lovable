@@ -50,6 +50,7 @@ import { PinGate } from "./components/PinGate";
 import { SettingsModal } from "./components/SettingsModal";
 import { AddLeadModal } from "./components/AddLeadModal";
 import { ImageModal } from "./components/ImageModal";
+import { SitePreviewModal } from "./components/SitePreviewModal";
 import { LeadCard } from "./components/LeadCard";
 
 // Fresh v3 key wipes any old fake demo records cleanly and starts with 100% real Antalya data
@@ -88,8 +89,8 @@ function loadInitialSettings(): PanelSettings {
   const defaults: PanelSettings = {
     apifyToken: envApifyToken || legacyApify,
     githubToken: envGithubToken,
-    siteUrl: "https://likyastudios.live/isletmeler",
-    senderName: "Açelya",
+    siteUrl: "https://likyastudios.live",
+    senderName: "Likya Studios",
     senderPhone: "+90 545 776 05 57",
     defaultPreset: "auto",
     panelPin: envPin,
@@ -157,6 +158,7 @@ export default function App() {
   // Modals & Lightbox
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
+  const [sitePreviewLeadId, setSitePreviewLeadId] = useState<string | null>(null);
   const [lightbox, setLightbox] = useState<{
     lead: Lead;
     kind: "mockup" | "qr";
@@ -183,7 +185,28 @@ export default function App() {
   }, [settings]);
 
   // Always sync latest REAL Antalya leads from GitHub main branch on startup
+  // + one-time upgrade of uncontacted leads to the new short, warm message tone
   useEffect(() => {
+    const msgUpgradeKey = "likya_crm_warm_msg_v4";
+    if (!localStorage.getItem(msgUpgradeKey)) {
+      setLeads((prev) =>
+        prev.map((l) =>
+          l.status === "Yeni" || l.status === "Görsel Hazır"
+            ? {
+                ...l,
+                custom_message: buildMessageForTemplate(
+                  l,
+                  "first_touch",
+                  "https://likyastudios.live",
+                  settings.senderName,
+                  settings.senderPhone
+                ),
+              }
+            : l
+        )
+      );
+      localStorage.setItem(msgUpgradeKey, "1");
+    }
     syncLiveLeadsFromGithub(true);
   }, []);
 
@@ -998,6 +1021,7 @@ export default function App() {
                 senderPhone={settings.senderPhone}
                 onUpdate={handleUpdateLead}
                 onDelete={handleDeleteLead}
+                onOpenSitePreview={(l) => setSitePreviewLeadId(l.id)}
                 onOpenLightbox={setLightbox}
                 onNotify={notify}
               />
@@ -1007,6 +1031,14 @@ export default function App() {
       </main>
 
       {/* Modals */}
+      <SitePreviewModal
+        lead={leads.find((l) => l.id === sitePreviewLeadId) || null}
+        defaultPreset={settings.defaultPreset}
+        onUpdateLead={handleUpdateLead}
+        onNotify={notify}
+        onClose={() => setSitePreviewLeadId(null)}
+      />
+
       <SettingsModal
         isOpen={settingsOpen}
         settings={settings}

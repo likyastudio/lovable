@@ -50,7 +50,7 @@ export function normalizeTrPhone(raw?: string | null): string {
   } else if (digits.startsWith("90") && digits.length === 12) {
     // already normalized
   } else if (digits.startsWith("0") && digits.length === 11) {
-    digits = "90" + digits.slice(1);
+    digits = "90" + digits[1] + digits.slice(2);
   } else if (digits.length === 10 && ["5", "2", "3", "4", "8"].includes(digits[0])) {
     digits = "90" + digits;
   }
@@ -79,59 +79,124 @@ export function inferDistrict(text: string, fallback = "Antalya"): string {
   return fallback;
 }
 
+function getSectorBenefit(category: string, businessName = ""): string {
+  const text = toAsciiLower(`${category} ${businessName}`);
+
+  if (
+    text.includes("guzellik") ||
+    text.includes("beauty") ||
+    text.includes("kuafor") ||
+    text.includes("estetik") ||
+    text.includes("spa") ||
+    text.includes("nail") ||
+    text.includes("tirnak") ||
+    text.includes("kirpik")
+  ) {
+    return "işlem fotoğraflarınızı sergileyebileceğiniz ve danışanlarınızın online randevu alabileceği";
+  }
+
+  if (
+    text.includes("dis") ||
+    text.includes("klinik") ||
+    text.includes("diyetisyen") ||
+    text.includes("doktor") ||
+    text.includes("psikolog")
+  ) {
+    return "hizmetlerinizi tanıtıp danışanlarınızın kolayca online randevu alabileceği";
+  }
+
+  if (
+    text.includes("otel") ||
+    text.includes("hotel") ||
+    text.includes("pansiyon") ||
+    text.includes("villa") ||
+    text.includes("konak") ||
+    text.includes("suites") ||
+    text.includes("apart")
+  ) {
+    return "odalarınızı Türkçe ve İngilizce sergileyebileceğiniz ve misafirlerinizin doğrudan rezervasyon yapabileceği";
+  }
+
+  if (
+    text.includes("meyhane") ||
+    text.includes("restoran") ||
+    text.includes("restaurant") ||
+    text.includes("balik") ||
+    text.includes("meze") ||
+    text.includes("ocakbasi") ||
+    text.includes("lokanta") ||
+    text.includes("kebap")
+  ) {
+    return "menünüzü ve mekan atmosferinizi sergileyebileceğiniz, misafirlerinizin kolayca masa ayırtabileceği";
+  }
+
+  if (
+    text.includes("kafe") ||
+    text.includes("cafe") ||
+    text.includes("coffee") ||
+    text.includes("kahve") ||
+    text.includes("pastane") ||
+    text.includes("pasta") ||
+    text.includes("cake") ||
+    text.includes("tatli") ||
+    text.includes("firin") ||
+    text.includes("bistro")
+  ) {
+    return "ürünlerinizi ve QR dijital menünüzü sergileyebileceğiniz, misafirlerinizin size kolayca ulaşabileceği";
+  }
+
+  if (
+    text.includes("tekne") ||
+    text.includes("tur") ||
+    text.includes("transfer") ||
+    text.includes("dalis") ||
+    text.includes("beach") ||
+    text.includes("plaj")
+  ) {
+    return "turlarınızı Türkçe ve İngilizce tanıtıp misafirlerinizden doğrudan rezervasyon alabileceğiniz";
+  }
+
+  return "hizmetlerinizi sergileyebileceğiniz ve müşterilerinizin size tek tıkla ulaşabileceği";
+}
+
+/**
+ * Clean, warm, sincere Turkish WhatsApp messages — zero fluff, zero walls of text.
+ */
 export function buildMessageForTemplate(
   lead: Pick<Lead, "business_name" | "category" | "district" | "google_rating" | "reviews_count">,
   template: MessageTemplateKey = "first_touch",
-  siteUrl = "https://likyastudios.live/isletmeler",
-  senderName = "Açelya",
-  senderPhone = "+90 545 776 05 57"
+  siteUrl = "https://likyastudios.live",
+  _senderName = "Likya Studios",
+  _senderPhone = ""
 ): string {
-  const ratingPart =
-    lead.google_rating && lead.reviews_count
-      ? ` (${lead.google_rating.toFixed(1)} puan ve ${lead.reviews_count} yorum gerçekten çok iyi)`
-      : lead.google_rating
-      ? ` (${lead.google_rating.toFixed(1)} puanınız çok iyi)`
-      : "";
-
-  const cat = toAsciiLower(lead.category);
-  const offerDetail =
-    cat.includes("otel") || cat.includes("pansiyon") || cat.includes("villa") || cat.includes("hotel")
-      ? "TR/EN tek sayfa web sitesi ve doğrudan WhatsApp rezervasyon taslağı"
-      : cat.includes("kafe") ||
-        cat.includes("cafe") ||
-        cat.includes("meyhane") ||
-        cat.includes("restoran") ||
-        cat.includes("pastane") ||
-        cat.includes("lokanta") ||
-        cat.includes("bar")
-      ? "TR/EN mobil web sitesi ve QR kodlu dijital menü taslağı"
-      : "TR/EN tek sayfa web sitesi ve QR hizmet kartı taslağı";
-
-  const districtPrefix = lead.district ? `${lead.district} bölgesinde ` : "Antalya'da ";
-  const signOff = `${senderName} · LIKYA STUDIOS · ${senderPhone}`;
+  const cleanSite = (siteUrl || "https://likyastudios.live").replace(/\/isletmeler\/?$/, "");
+  const benefit = getSectorBenefit(lead.category, lead.business_name);
 
   if (template === "short_direct") {
     return (
-      `Merhaba, ben ${senderName} — LIKYA STUDIOS (${siteUrl}). ` +
-      `${lead.business_name} için ücretsiz bir mobil site ve QR menü önizlemesi hazırladım. ` +
-      `Kurulum ücreti olmadan, sadece aylık bakım modeliyle birkaç günde yayına alıyoruz. ` +
-      `Örnek görselleri buradan göndermemi ister misiniz?\n\n${signOff}`
+      `Merhaba, ${lead.business_name} yetkilisiyle mi görüşüyorum? ` +
+      `Google Haritalar'da işletmenizi gördük ancak bir web sitenizi bulamadık. ` +
+      `Likya Studios olarak, ${benefit} uygun fiyatlı bir web sitesi geliştirebiliriz. ` +
+      `Çalışmalarımıza ${cleanSite} adresinden veya Instagram'da @likyastudios hesabından bakabilirsiniz. ` +
+      `İlgilenirseniz buradan yazmanız yeterli. İstemezseniz haber verin, tekrar yazmayacağız. Likya Studios`
     );
   }
 
   if (template === "follow_up") {
     return (
-      `Merhaba, geçen hafta ${lead.business_name} için hazırladığımız ücretsiz web sitesi ve QR menü önizlemesiyle ilgili yazmıştım. ` +
-      `Yoğun olduğunuzu biliyorum; örnek görselleri görmek isterseniz "evet" yazmanız yeterli (${siteUrl}). ` +
-      `Yanıt gelmezse bir daha rahatsız etmem.\n\n${signOff}`
+      `Merhaba, geçen hafta ${lead.business_name} için hazırladığımız örnek web sitesi taslağıyla ilgili yazmıştık. ` +
+      `Yoğun olduğunuzu biliyoruz; incelemek isterseniz buradan yazmanız yeterli. ` +
+      `İstemezseniz haber verin, tekrar yazmayacağız. Likya Studios`
     );
   }
 
+  // Default: Warm, concise message specifically written to accompany the venue preview image
   return (
-    `Merhaba, ben ${senderName} — Antalya'dan LIKYA STUDIOS (${siteUrl}). ` +
-    `Google Haritalar'da ${lead.business_name}'ı gördüm${ratingPart}. ` +
-    `Profilinizde web sitesi olmadığını fark edince sizin için ücretsiz bir ${offerDetail} hazırladım.\n\n` +
-    `${districtPrefix}işletmelere kurulum ücreti olmadan, sadece aylık bakım modeliyle hızlıca kuruyoruz. ` +
-    `Hazırladığım örnek tasarım görsellerini buradan göndermemi ister misiniz? İstemezseniz bir daha yazmam.\n\n${signOff}`
+    `Merhaba, ${lead.business_name} yetkilisiyle mi görüşüyorum? ` +
+    `Google Haritalar'da işletmenizi gördük ancak bir web sitenizi bulamadık. ` +
+    `Likya Studios olarak, ${benefit} uygun fiyatlı bir web sitesi geliştirebiliriz. ` +
+    `Fikir vermesi için işletmenize özel hazırladığımız örnek tasarım görselini ekte paylaşıyoruz. ` +
+    `Çalışmalarımıza ${cleanSite} adresinden veya Instagram'da @likyastudios hesabından bakabilirsiniz. ` +
+    `İlgilenirseniz buradan yazmanız yeterli. İstemezseniz haber verin, tekrar yazmayacağız. Likya Studios`
   );
 }
